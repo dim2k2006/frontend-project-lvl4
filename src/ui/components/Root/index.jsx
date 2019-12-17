@@ -1,12 +1,11 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import PropTypes from 'prop-types';
+import Layout from '../Layout/index';
 
 const Root = ({ store }) => (
   <Provider store={store}>
-    <div>
-      Here goes an App!
-    </div>
+    <Layout />
   </Provider>
 );
 

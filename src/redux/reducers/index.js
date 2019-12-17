@@ -5,4 +5,6 @@ const reducer = (state, action) => {
   }
 };
 
+export const getChannels = (state) => state.channels;
+
 export default reducer;
