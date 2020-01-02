@@ -15,6 +15,7 @@ const isDevelopment = !isProduction;
 
 const setUpViews = (app) => {
   const domain = isDevelopment ? 'http://localhost:8080' : '';
+
   app.register(pointOfView, {
     engine: {
       pug: Pug,
@@ -28,7 +29,7 @@ const setUpViews = (app) => {
 
 const setUpStaticAssets = (app) => {
   app.register(fastifyStatic, {
-    root: path.join(appPath, 'dist'),
+    root: path.join(appPath, 'dist', 'public'),
     prefix: '/assets',
   });
 };
