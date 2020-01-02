@@ -1,12 +1,18 @@
 install: install-deps
 
 start:
-	heroku local -f Procfile.dev
+	heroku local
 
 start-backend:
-	npx nodemon --exec npx babel-node server/bin/slack.js
+	NODE_ENV=production node dist/bin/slack.js
 
-start-frontend:
+develop:
+	heroku local -f Procfile.dev
+
+develop-backend:
+	NODE_ENV=development npx nodemon --exec npx babel-node server/bin/slack.js
+
+develop-frontend:
 	npx webpack-dev-server
 
 install-deps:
