@@ -3,9 +3,10 @@ import { render } from 'react-dom';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import get from 'lodash/get';
+import { configureStore } from '@reduxjs/toolkit';
 import '../assets/application.scss';
 import Root from './ui/components/Root/index';
-import configureStore from './redux/store';
+import reducer from './redux/reducers';
 
 // import faker from 'faker';
 // import gon from 'gon';
@@ -16,8 +17,11 @@ if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';
 }
 
-const initialState = get(window, 'gon', {});
-const store = configureStore(initialState);
+const preloadedState = get(window, 'gon', {});
+const store = configureStore({
+  reducer,
+  preloadedState,
+});
 
 render(
   <Root store={store} />,
