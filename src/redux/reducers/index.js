@@ -1,9 +1,8 @@
-const reducer = (state, action) => {
-  switch (action.type) {
-    default:
-      return state;
-  }
-};
+import { createReducer } from '@reduxjs/toolkit';
+
+const reducer = createReducer({}, {
+
+});
 
 export const getChannels = (state) => state.channels;
 
