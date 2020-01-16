@@ -12,12 +12,12 @@ const Aside = ({ channels, userName, activeChannel }) => (
     <ul className="list-group list-group-flush">
       {
         channels.map((channel) => {
-          const Tag = channel.name === activeChannel ? 'strong' : 'span';
+          const Tag = channel.id === activeChannel ? 'strong' : 'span';
 
           return (
             <li key={channel.id} className="list-group-item bg-transparent">
-              <Link to={`/channels/${channel.name}`}>
-                <button type="button" className="btn btn-link text-white"><Tag>{channel.name}</Tag></button>
+              <Link to={`/channels/${channel.id}`}>
+                <button type="button" className="btn btn-link text-white text-capitalize"><Tag>{channel.name}</Tag></button>
               </Link>
             </li>
           );
@@ -30,7 +30,7 @@ const Aside = ({ channels, userName, activeChannel }) => (
 Aside.propTypes = {
   channels: PropTypes.arrayOf(PropTypes.object),
   userName: PropTypes.string.isRequired,
-  activeChannel: PropTypes.string.isRequired,
+  activeChannel: PropTypes.number.isRequired,
 };
 
 Aside.defaultProps = {

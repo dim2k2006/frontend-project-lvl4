@@ -14,7 +14,7 @@ const Root = ({ store }) => (
     <Router>
       <Switch>
         <Route exact path="/">
-          <Redirect to="/channels/general" />
+          <Redirect to="/channels/1" />
         </Route>
 
         <Route path="/channels/:channel">

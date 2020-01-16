@@ -23,7 +23,7 @@ const store = configureStore({
   reducer,
   preloadedState: {
     ...preloadedState,
-    activeChannel: '',
+    activeChannel: 0,
     userName: getUserName(),
   },
 });
