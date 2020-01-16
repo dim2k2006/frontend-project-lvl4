@@ -10,4 +10,8 @@ const reducer = createReducer({}, {
 
 export const getChannels = (state) => state.channels;
 
+export const getActiveChannel = (state) => state.activeChannel;
+
+export const getUserName = (state) => state.userName;
+
 export default reducer;
