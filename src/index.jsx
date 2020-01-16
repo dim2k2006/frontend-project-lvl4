@@ -20,7 +20,10 @@ if (process.env.NODE_ENV !== 'production') {
 const preloadedState = get(window, 'gon', {});
 const store = configureStore({
   reducer,
-  preloadedState,
+  preloadedState: {
+    ...preloadedState,
+    activeChannel: '',
+  },
 });
 
 render(
