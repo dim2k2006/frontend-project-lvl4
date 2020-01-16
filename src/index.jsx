@@ -7,6 +7,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import '../assets/application.scss';
 import Root from './ui/components/Root/index';
 import reducer from './redux/reducers';
+import { getUserName } from './utils';
 
 // import faker from 'faker';
 // import gon from 'gon';
@@ -23,6 +24,7 @@ const store = configureStore({
   preloadedState: {
     ...preloadedState,
     activeChannel: '',
+    userName: getUserName(),
   },
 });
 
