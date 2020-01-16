@@ -34,6 +34,9 @@ export default (app, io, defaultState = {}) => {
     .get('/', (_req, reply) => {
       reply.view('index.pug', { gon: state });
     })
+    .get('/channels/:channel', (_req, reply) => {
+      reply.view('index.pug', { gon: state });
+    })
     .get('/api/v1/channels', (_req, reply) => {
       const resources = state.channels.map((c) => ({
         type: 'channels',
