@@ -1,15 +1,18 @@
 import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import flow from 'lodash/flow';
+import get from 'lodash/get';
 import { connect } from 'react-redux';
 import Aside from '../Aside/index';
 import * as actions from '../../../redux/actions';
 
 const Layout = ({ activateChannel }) => {
-  const location = useLocation();
+  const match = useRouteMatch();
 
   useEffect(() => {
-    activateChannel({ channel: location.pathname });
+    const channel = get(match, 'params.channel');
+
+    activateChannel({ channel });
   });
 
   return (
