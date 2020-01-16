@@ -20,7 +20,7 @@ const Layout = ({ activateChannel }) => {
   return (
     <div className="container-fluid h-100">
       <div className="row h-100">
-        <div className="col-4 col-sm-4 col-md-3 col-lg-3 col-xl-2  h-100 bg-info">
+        <div className="col-4 col-sm-4 col-md-3 col-lg-3 col-xl-2 h-100 bg-info">
           <Aside />
         </div>
 
