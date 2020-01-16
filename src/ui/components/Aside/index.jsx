@@ -2,6 +2,7 @@ import React from 'react';
 import flow from 'lodash/flow';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { getChannels } from '../../../redux/reducers';
 
 const Aside = ({ channels }) => (
@@ -9,7 +10,9 @@ const Aside = ({ channels }) => (
     {
       channels.map((channel) => (
         <li key={channel.id} className="list-group-item bg-transparent">
-          <button type="button" className="btn btn-link text-white">{channel.name}</button>
+          <Link to={`/channels/${channel.name}`}>
+            <button type="button" className="btn btn-link text-white">{channel.name}</button>
+          </Link>
         </li>
       ))
     }
