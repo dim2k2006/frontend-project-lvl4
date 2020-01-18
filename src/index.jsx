@@ -7,7 +7,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import '../assets/application.scss';
 import Root from './ui/components/Root/index';
 import reducer from './redux/reducers';
-import { getUserName } from './utils';
 
 // import faker from 'faker';
 // import gon from 'gon';
@@ -21,11 +20,7 @@ if (process.env.NODE_ENV !== 'production') {
 const preloadedState = get(window, 'gon', {});
 const store = configureStore({
   reducer,
-  preloadedState: {
-    ...preloadedState,
-    activeChannel: 0,
-    userName: getUserName(),
-  },
+  preloadedState: { ...preloadedState },
 });
 
 render(
