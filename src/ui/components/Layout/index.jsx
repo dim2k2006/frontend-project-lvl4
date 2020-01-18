@@ -27,7 +27,7 @@ const Layout = ({ activateChannel }) => {
         </div>
 
         <div className="col-8 col-sm-8 col-md-9 col-lg-9 col-xl-10 h-100">
-          <div className="row h-100 flex-column">
+          <div className="row h-100 flex-column flex-nowrap">
             <Nav />
 
             <Messages />

@@ -6,16 +6,14 @@ const Message = ({
   time,
   text,
 }) => (
-  <div className="card mb-3">
+  <div className="card mb-4 w-100 border-0">
     <div className="row no-gutters">
-      <div className="col-md-4">
-        <img src="https://via.placeholder.com/36" className="card-img" alt={name} />
-      </div>
+      <div className="col-sm-12">
+        <div className="card-body p-0">
+          <h5 className="card-title mb-1">{name}</h5>
 
-      <div className="col-md-8">
-        <div className="card-body">
-          <h5 className="card-title">{name}</h5>
-          <p className="card-text">{text}</p>
+          <p className="card-text mb-1">{text}</p>
+
           <p className="card-text"><small className="text-muted">{time}</small></p>
         </div>
       </div>
