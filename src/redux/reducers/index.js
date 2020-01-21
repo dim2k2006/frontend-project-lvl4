@@ -39,6 +39,9 @@ export const getChannels = (state) => state.channels;
 
 export const getMessages = (state) => state.messages;
 
+export const getMessagesForChannel = (state, channelId) => state.messages
+  .filter((m) => m.channelId === channelId);
+
 export const getActiveChannel = (state) => state.activeChannel;
 
 export const getUserName = (state) => state.userName;
