@@ -5,9 +5,14 @@ import get from 'lodash/get';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import * as actions from '../../../redux/actions';
-import { getUserName, getActiveChannel } from '../../../redux/reducers';
+import { getUserName, getActiveChannel, getMessageSubmittingState } from '../../../redux/reducers';
 
-const MessageForm = ({ userName, activeChannel, onSubmit }) => (
+const MessageForm = ({
+  userName,
+  activeChannel,
+  submittingState,
+  onSubmit,
+}) => (
   <Formik
     initialValues={{ message: '' }}
     onSubmit={onSubmit(userName, activeChannel)}
@@ -27,7 +32,7 @@ const MessageForm = ({ userName, activeChannel, onSubmit }) => (
       >
         <form
           onSubmit={props.handleSubmit}
-          className="w-100 p-3"
+          className="w-100 p-3 position-relative"
         >
           <textarea
             name="message"
@@ -36,7 +41,23 @@ const MessageForm = ({ userName, activeChannel, onSubmit }) => (
             value={props.values.name}
             onChange={props.handleChange}
             onBlur={props.handleBlur}
+            disabled={submittingState === 'requested'}
           />
+
+          {submittingState === 'requested' && (
+            <div
+              className="spinner-border text-info position-absolute"
+              role="status"
+              style={{
+                top: '50%',
+                left: '50%',
+                marginTop: '-16px',
+                marginLeft: '-16px',
+              }}
+            >
+              <span className="sr-only">Loading...</span>
+            </div>
+          )}
         </form>
       </div>
     )}
@@ -45,6 +66,7 @@ const MessageForm = ({ userName, activeChannel, onSubmit }) => (
 
 MessageForm.propTypes = {
   userName: PropTypes.string.isRequired,
+  submittingState: PropTypes.string.isRequired,
   activeChannel: PropTypes.number.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
@@ -54,6 +76,7 @@ export default flow(
     (state) => ({
       userName: getUserName(state),
       activeChannel: getActiveChannel(state),
+      submittingState: getMessageSubmittingState(state),
     }),
     (dispatch) => ({
       onSubmit: (author, channelId) => (values) => {
