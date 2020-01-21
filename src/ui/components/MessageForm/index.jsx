@@ -38,7 +38,7 @@ const MessageForm = ({
             name="message"
             className="form-control w-100"
             placeholder="Enter Your Message"
-            value={props.values.name}
+            value={props.values.message}
             onChange={props.handleChange}
             onBlur={props.handleBlur}
             disabled={submittingState === 'requested'}
@@ -79,7 +79,7 @@ export default flow(
       submittingState: getMessageSubmittingState(state),
     }),
     (dispatch) => ({
-      onSubmit: (author, channelId) => (values) => {
+      onSubmit: (author, channelId) => (values, { resetForm }) => {
         const text = get(values, 'message');
         const data = {
           data: {
@@ -90,7 +90,7 @@ export default flow(
           },
         };
 
-        dispatch(actions.submitMessage(channelId, data));
+        dispatch(actions.submitMessage(channelId, data, resetForm));
       },
     }),
   ),

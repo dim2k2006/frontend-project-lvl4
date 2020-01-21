@@ -1,4 +1,7 @@
+import axios from 'axios';
+import get from 'lodash/get';
 import { createAction } from '@reduxjs/toolkit';
+import routes from '../../routes';
 
 export const activateChannel = createAction('CHANNEL_ACTIVATE');
 
@@ -6,23 +9,21 @@ export const submitMessageRequest = createAction('MESSAGE_SUBMIT_REQUEST');
 export const submitMessageSuccess = createAction('MESSAGE_SUBMIT_SUCCESS');
 export const submitMessageFailure = createAction('MESSAGE_SUBMIT_FAILURE');
 
-export const submitMessage = (data, endpoint, form) => (dispatch) => {
+export const submitMessage = (channelId, data, resetFn) => (dispatch) => {
   dispatch(submitMessageRequest());
 
-  // return axios({
-  //   method: 'POST',
-  //   url: `${host}${endpoint}`,
-  //   data,
-  //   headers,
-  // })
-  //   .then(() => {
-  //     dispatch(submitMessageSuccess());
-  //
-  //     // setTimeout(() => {
-  //     //   dispatch(reset(form));
-  //     //   dispatch(submitCustomerFormReset());
-  //     // }, resetDelay);
-  //   })
+  return axios({
+    method: 'POST',
+    url: routes.channelMessagesPath(channelId),
+    data,
+  })
+    .then((response) => {
+      const message = get(response, 'data.data.attributes');
+
+      dispatch(submitMessageSuccess({ message }));
+
+      resetFn();
+    })
   //   .catch((error) => {
   //     // const status = get(error, 'response.status', 500);
   //     // const errors = get(error, 'response.data.errors', {});
