@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import dayjs from 'dayjs';
 
 const getNextId = () => Number(_.uniqueId());
 
@@ -118,6 +119,7 @@ export default (app, io, defaultState = {}) => {
         ...attributes,
         channelId: Number(req.params.channelId),
         id: getNextId(),
+        date: dayjs().format('DD.MM.YYYY - HH:mm'),
       };
       state.messages.push(message);
       reply.code(201);
