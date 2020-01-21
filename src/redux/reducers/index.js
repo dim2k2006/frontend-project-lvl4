@@ -46,6 +46,8 @@ export const getActiveChannel = (state) => state.activeChannel;
 
 export const getUserName = (state) => state.userName;
 
+export const getMessageSubmittingState = (state) => state.messageSubmittingState;
+
 export default combineReducers({
   channels,
   messages,
