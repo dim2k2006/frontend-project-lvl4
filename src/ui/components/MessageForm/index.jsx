@@ -5,11 +5,12 @@ import get from 'lodash/get';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import * as actions from '../../../redux/actions';
+import { getUserName, getActiveChannel } from '../../../redux/reducers';
 
-const MessageForm = ({ onSubmit }) => (
+const MessageForm = ({ userName, activeChannel, onSubmit }) => (
   <Formik
     initialValues={{ message: '' }}
-    onSubmit={onSubmit}
+    onSubmit={onSubmit(userName, activeChannel)}
   >
     {(props) => (
       <div
@@ -43,15 +44,30 @@ const MessageForm = ({ onSubmit }) => (
 );
 
 MessageForm.propTypes = {
+  userName: PropTypes.string.isRequired,
+  activeChannel: PropTypes.number.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
 
 export default flow(
   connect(
-    null,
+    (state) => ({
+      userName: getUserName(state),
+      activeChannel: getActiveChannel(state),
+    }),
     (dispatch) => ({
-      onSubmit: (data) => {
-        console.log('data:', data);
+      onSubmit: (author, channelId) => (values) => {
+        const text = get(values, 'message');
+        const data = {
+          data: {
+            attributes: {
+              text,
+              author,
+            },
+          },
+        };
+
+        dispatch(actions.submitMessage(channelId, data));
       },
     }),
   ),
