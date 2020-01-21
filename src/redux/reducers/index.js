@@ -1,6 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
-// import produce from 'immer';
 import * as actions from '../actions';
 import { getUserName as getName } from '../../utils';
 
@@ -9,7 +8,9 @@ const channels = createReducer([], {
 });
 
 const messages = createReducer([], {
-
+  [actions.submitMessageSuccess](state, action) {
+    state.push(action.payload.message);
+  },
 });
 
 const userName = createReducer(getName(), {
@@ -35,6 +36,8 @@ const activeChannel = createReducer(0, {
 });
 
 export const getChannels = (state) => state.channels;
+
+export const getMessages = (state) => state.messages;
 
 export const getActiveChannel = (state) => state.activeChannel;
 
