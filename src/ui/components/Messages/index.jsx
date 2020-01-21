@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import flow from 'lodash/flow';
 import { connect } from 'react-redux';
 import Message from '../Message';
-import { getMessages } from '../../../redux/reducers';
+import { getActiveChannel, getMessagesForChannel } from '../../../redux/reducers';
 
 const Messages = ({ messages }) => {
   const container = useRef(null);
@@ -38,8 +38,11 @@ Messages.defaultProps = {
 
 export default flow(
   connect(
-    (state) => ({
-      messages: getMessages(state),
-    }),
+    (state) => {
+      const activeChannel = getActiveChannel(state);
+      const messages = getMessagesForChannel(state, activeChannel);
+
+      return { messages };
+    },
   ),
 )(Messages);
