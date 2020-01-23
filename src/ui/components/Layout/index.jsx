@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useRouteMatch } from 'react-router-dom';
 import flow from 'lodash/flow';
 import get from 'lodash/get';
+import find from 'lodash/find';
 import toNumber from 'lodash/toNumber';
+import io from 'socket.io-client/dist/socket.io.js';
 import { connect } from 'react-redux';
 import Aside from '../Aside/index';
 import Nav from '../Nav/index';
@@ -10,8 +13,9 @@ import Messages from '../Messages/index';
 import MessageForm from '../MessageForm/index';
 import ErrorMessage from '../ErrorMessage/index';
 import * as actions from '../../../redux/actions';
+import { getActiveChannel, getMessagesForChannel } from '../../../redux/reducers';
 
-const Layout = ({ activateChannel }) => {
+const Layout = ({ messages, activateChannel, receiveMessage }) => {
   const match = useRouteMatch();
 
   useEffect(() => {
@@ -19,6 +23,23 @@ const Layout = ({ activateChannel }) => {
 
     activateChannel({ channel });
   });
+
+  useEffect(() => {
+    const socket = io();
+
+    socket.on('newMessage', (data) => {
+      const message = get(data, 'data.attributes');
+      const isMessageExist = find(messages, (m) => m.id === message.id);
+
+      if (isMessageExist) return;
+
+      receiveMessage({ message });
+    });
+
+    return () => {
+      socket.close();
+    };
+  }, [messages]);
 
   return (
     <div className="container-fluid h-100">
@@ -43,9 +64,24 @@ const Layout = ({ activateChannel }) => {
   );
 };
 
+Layout.propTypes = {
+  messages: PropTypes.arrayOf(PropTypes.object),
+  activateChannel: PropTypes.func.isRequired,
+  receiveMessage: PropTypes.func.isRequired,
+};
+
+Layout.defaultProps = {
+  messages: [],
+};
+
 export default flow(
   connect(
-    null,
+    (state) => {
+      const activeChannel = getActiveChannel(state);
+      const messages = getMessagesForChannel(state, activeChannel);
+
+      return { messages };
+    },
     actions,
   ),
 )(Layout);
