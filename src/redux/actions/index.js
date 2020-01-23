@@ -29,4 +29,6 @@ export const submitMessage = (channelId, data, resetFn) => (dispatch) => {
     });
 };
 
+export const receiveMessage = createAction('MESSAGE_RECEIVE');
+
 export const resetErrorMessage = createAction('ERROR_MESSAGE_RESET');

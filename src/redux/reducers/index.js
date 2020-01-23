@@ -11,6 +11,9 @@ const messages = createReducer([], {
   [actions.submitMessageSuccess](state, action) {
     state.push(action.payload.message);
   },
+  [actions.receiveMessage](state, action) {
+    state.push(action.payload.message);
+  },
 });
 
 const userName = createReducer(getName(), {
