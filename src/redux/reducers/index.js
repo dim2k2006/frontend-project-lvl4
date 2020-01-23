@@ -17,6 +17,15 @@ const userName = createReducer(getName(), {
 
 });
 
+const errorMessage = createReducer('', {
+  [actions.submitMessageFailure](state, action) {
+    return action.payload.message;
+  },
+  [actions.resetErrorMessage]() {
+    return '';
+  },
+});
+
 const messageSubmittingState = createReducer('none', {
   [actions.submitMessageRequest]() {
     return 'requested';
@@ -48,10 +57,13 @@ export const getUserName = (state) => state.userName;
 
 export const getMessageSubmittingState = (state) => state.messageSubmittingState;
 
+export const getErrorMessage = (state) => state.errorMessage;
+
 export default combineReducers({
   channels,
   messages,
   userName,
   messageSubmittingState,
   activeChannel,
+  errorMessage,
 });

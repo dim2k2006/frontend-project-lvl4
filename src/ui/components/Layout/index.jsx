@@ -8,6 +8,7 @@ import Aside from '../Aside/index';
 import Nav from '../Nav/index';
 import Messages from '../Messages/index';
 import MessageForm from '../MessageForm/index';
+import ErrorMessage from '../ErrorMessage/index';
 import * as actions from '../../../redux/actions';
 
 const Layout = ({ activateChannel }) => {
@@ -36,6 +37,8 @@ const Layout = ({ activateChannel }) => {
           </div>
         </div>
       </div>
+
+      <ErrorMessage />
     </div>
   );
 };

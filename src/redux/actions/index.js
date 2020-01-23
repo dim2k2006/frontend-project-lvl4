@@ -24,21 +24,9 @@ export const submitMessage = (channelId, data, resetFn) => (dispatch) => {
 
       resetFn();
     })
-  //   .catch((error) => {
-  //     // const status = get(error, 'response.status', 500);
-  //     // const errors = get(error, 'response.data.errors', {});
-  //     // const errorMessage = keys(errors)
-  //     //   .reduce((accumulator, key) => ({
-  //     //     ...accumulator,
-  //     //     [key]: errors[key].join(', '),
-  //     //   }), {});
-  //     //
-  //     // if (status === 422) {
-  //     //   throw new SubmissionError(errorMessage);
-  //     // }
-  //
-  //     dispatch(submitMessageFailure());
-  //
-  //     // throw error;
-  //   });
+    .catch(() => {
+      dispatch(submitMessageFailure({ message: 'Something went wrong during sending the message. Please try again.' }));
+    });
 };
+
+export const resetErrorMessage = createAction('ERROR_MESSAGE_RESET');
