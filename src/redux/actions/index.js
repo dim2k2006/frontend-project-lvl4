@@ -32,3 +32,25 @@ export const submitMessage = (channelId, data, resetFn) => (dispatch) => {
 export const receiveMessage = createAction('MESSAGE_RECEIVE');
 
 export const resetErrorMessage = createAction('ERROR_MESSAGE_RESET');
+
+export const addChannelRequest = createAction('CHANNEL_ADD_REQUEST');
+export const addChannelSuccess = createAction('CHANNEL_ADD_SUCCESS');
+export const addChannelFailure = createAction('CHANNEL_ADD_FAILURE');
+
+export const addChannel = (channelId, data) => (dispatch) => {
+  dispatch(addChannelRequest());
+
+  return axios({
+    method: 'POST',
+    url: routes.channelsPath(),
+    data,
+  })
+  // .then((response) => {
+  //   // const message = get(response, 'data.data.attributes');
+  //
+  //   // dispatch(submitMessageSuccess({ message }));
+  // })
+  // .catch(() => {
+  //   // dispatch(submitMessageFailure({ message: 'Something went wrong during sending the message. Please try again.' }));
+  // });
+};

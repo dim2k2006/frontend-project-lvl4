@@ -7,6 +7,18 @@ const channels = createReducer([], {
 
 });
 
+const channelAddingState = createReducer('none', {
+  [actions.addChannelRequest]() {
+    return 'requested';
+  },
+  [actions.addChannelFailure]() {
+    return 'failed';
+  },
+  [actions.addChannelSuccess]() {
+    return 'finished';
+  },
+});
+
 const messages = createReducer([], {
   [actions.submitMessageSuccess](state, action) {
     state.push(action.payload.message);
@@ -64,9 +76,10 @@ export const getErrorMessage = (state) => state.errorMessage;
 
 export default combineReducers({
   channels,
+  channelAddingState,
   messages,
-  userName,
   messageSubmittingState,
+  userName,
   activeChannel,
   errorMessage,
 });
