@@ -36,7 +36,8 @@ export const resetErrorMessage = createAction('ERROR_MESSAGE_RESET');
 export const addChannel = createAction('CHANNEL_ADD');
 export const removeChannel = createAction('CHANNEL_REMOVE');
 export const editChannel = createAction('CHANNEL_EDIT');
-export const resetChannel = createAction('CHANNEL_RESET');
+
+export const resetModal = createAction('MODAL_RESET');
 
 export const addChannelRequest = createAction('CHANNEL_ADD_REQUEST');
 export const addChannelSuccess = createAction('CHANNEL_ADD_SUCCESS');

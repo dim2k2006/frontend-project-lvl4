@@ -12,6 +12,7 @@ import Nav from '../Nav/index';
 import Messages from '../Messages/index';
 import MessageForm from '../MessageForm/index';
 import ErrorMessage from '../ErrorMessage/index';
+import AddChannelModal from '../AddChannelModal/index';
 import * as actions from '../../../redux/actions';
 import { getActiveChannel, getMessagesForChannel } from '../../../redux/reducers';
 
@@ -58,6 +59,8 @@ const Layout = ({ messages, activateChannel, receiveMessage }) => {
           </div>
         </div>
       </div>
+
+      <AddChannelModal />
 
       <ErrorMessage />
     </div>

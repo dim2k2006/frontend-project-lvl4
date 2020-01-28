@@ -69,7 +69,7 @@ const modalState = createReducer('none', {
   [actions.editChannel]() {
     return 'editingChannel';
   },
-  [actions.resetChannel]() {
+  [actions.resetModal]() {
     return 'none';
   },
 });

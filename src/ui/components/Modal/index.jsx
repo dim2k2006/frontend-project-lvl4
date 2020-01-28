@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import flow from 'lodash/flow';
+import { connect } from 'react-redux';
 import Portal from '../Portal';
+import * as actions from '../../../redux/actions';
 
-const Modal = ({ title, children, onClose }) => (
+const Modal = ({ title, children, resetModal }) => (
   <Portal id="modal">
     <div
-      className="modal fade"
+      className="modal fade show d-block"
       tabIndex="-1"
       role="dialog"
     >
@@ -19,7 +22,7 @@ const Modal = ({ title, children, onClose }) => (
               className="close"
               data-dismiss="modal"
               aria-label="Close"
-              onClick={onClose}
+              onClick={() => resetModal()}
             >
               <span aria-hidden="true">&times;</span>
             </button>
@@ -31,12 +34,20 @@ const Modal = ({ title, children, onClose }) => (
         </div>
       </div>
     </div>
+
+    <div className="modal-backdrop fade show" />
   </Portal>
 );
 
 Modal.propTypes = {
+  title: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
-  onClose: PropTypes.func.isRequired,
+  resetModal: PropTypes.func.isRequired,
 };
 
-export default Modal;
+export default flow(
+  connect(
+    null,
+    actions,
+  ),
+)(Modal);

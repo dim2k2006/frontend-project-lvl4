@@ -5,8 +5,14 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Octicon, { Plus } from '@primer/octicons-react';
 import { getChannels, getUserName, getActiveChannel } from '../../../redux/reducers';
+import * as actions from '../../../redux/actions';
 
-const Aside = ({ channels, userName, activeChannel }) => (
+const Aside = ({
+  channels,
+  userName,
+  activeChannel,
+  addChannel,
+}) => (
   <div className="pt-4">
     <div className="mb-4">
       <h3 className="text-white mb-0">Hexlet:slack</h3>
@@ -17,7 +23,12 @@ const Aside = ({ channels, userName, activeChannel }) => (
     <h5 className="text-white position-relative">
       Channels
 
-      <button type="button" className="position-absolute btn btn-link text-white p-0 pl-1 pr-1" style={{ right: '0', top: '50%', transform: 'translateY(-50%)' }}>
+      <button
+        type="button"
+        className="position-absolute btn btn-link text-white p-0 pl-1 pr-1"
+        style={{ right: '0', top: '50%', transform: 'translateY(-50%)' }}
+        onClick={() => addChannel()}
+      >
         <Octicon icon={Plus} />
       </button>
     </h5>
@@ -49,6 +60,7 @@ Aside.propTypes = {
   channels: PropTypes.arrayOf(PropTypes.object),
   userName: PropTypes.string.isRequired,
   activeChannel: PropTypes.number.isRequired,
+  addChannel: PropTypes.func.isRequired,
 };
 
 Aside.defaultProps = {
@@ -62,5 +74,6 @@ export default flow(
       activeChannel: getActiveChannel(state),
       userName: getUserName(state),
     }),
+    actions,
   ),
 )(Aside);
