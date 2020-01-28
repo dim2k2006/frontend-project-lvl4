@@ -13,6 +13,9 @@ const channels = createReducer([], {
   [actions.removeChannelSuccess](state, action) {
     return state.filter((channel) => channel.id !== action.payload.id);
   },
+  [actions.receiveRemovedChannel](state, action) {
+    return state.filter((channel) => channel.id !== action.payload.id);
+  },
 });
 
 const channelAddingState = createReducer('none', {

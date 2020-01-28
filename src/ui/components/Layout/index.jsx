@@ -23,6 +23,7 @@ const Layout = ({
   activateChannel,
   receiveMessage,
   receiveChannel,
+  receiveRemovedChannel,
 }) => {
   const match = useRouteMatch();
 
@@ -51,6 +52,12 @@ const Layout = ({
       if (isChannelExist) return;
 
       receiveChannel({ channel });
+    });
+
+    socket.on('removeChannel', (data) => {
+      const id = get(data, 'data.id');
+
+      receiveRemovedChannel({ id });
     });
 
     return () => {
@@ -91,6 +98,7 @@ Layout.propTypes = {
   activateChannel: PropTypes.func.isRequired,
   receiveMessage: PropTypes.func.isRequired,
   receiveChannel: PropTypes.func.isRequired,
+  receiveRemovedChannel: PropTypes.func.isRequired,
 };
 
 Layout.defaultProps = {

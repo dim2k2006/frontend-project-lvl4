@@ -87,3 +87,5 @@ export const deleteChannel = (id) => (dispatch) => {
       dispatch(removeChannelFailure({ message: 'Something went wrong during removing the channel. Please try again.' }));
     });
 };
+
+export const receiveRemovedChannel = createAction('CHANNEL_RECEIVE_REMOVED');
