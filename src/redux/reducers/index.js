@@ -10,6 +10,9 @@ const channels = createReducer([], {
   [actions.receiveChannel](state, action) {
     state.push(action.payload.channel);
   },
+  [actions.removeChannelSuccess](state, action) {
+    return state.filter((channel) => channel.id !== action.payload.id);
+  },
 });
 
 const channelAddingState = createReducer('none', {
@@ -20,6 +23,18 @@ const channelAddingState = createReducer('none', {
     return 'failed';
   },
   [actions.addChannelSuccess]() {
+    return 'finished';
+  },
+});
+
+const channelRemovingState = createReducer('none', {
+  [actions.removeChannelRequest]() {
+    return 'requested';
+  },
+  [actions.removeChannelFailure]() {
+    return 'failed';
+  },
+  [actions.removeChannelSuccess]() {
     return 'finished';
   },
 });
@@ -99,11 +114,14 @@ export const getErrorMessage = (state) => state.errorMessage;
 
 export const getChannelAddingState = (state) => state.channelAddingState;
 
+export const getChannelRemovingState = (state) => state.channelRemovingState;
+
 export const getModalState = (state) => state.modalState;
 
 export default combineReducers({
   channels,
   channelAddingState,
+  channelRemovingState,
   messages,
   messageSubmittingState,
   userName,

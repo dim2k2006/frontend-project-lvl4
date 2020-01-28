@@ -66,3 +66,24 @@ export const createChannel = (data, resetFn) => (dispatch) => {
 };
 
 export const receiveChannel = createAction('CHANNEL_RECEIVE');
+
+export const removeChannelRequest = createAction('CHANNEL_REMOVE_REQUEST');
+export const removeChannelSuccess = createAction('CHANNEL_REMOVE_SUCCESS');
+export const removeChannelFailure = createAction('CHANNEL_REMOVE_FAILURE');
+
+export const deleteChannel = (id) => (dispatch) => {
+  dispatch(removeChannelRequest());
+
+  return axios({
+    method: 'DELETE',
+    url: `${routes.channelsPath()}/${id}`,
+  })
+    .then(() => {
+      dispatch(removeChannelSuccess({ id }));
+
+      dispatch(resetModal());
+    })
+    .catch(() => {
+      dispatch(removeChannelFailure({ message: 'Something went wrong during removing the channel. Please try again.' }));
+    });
+};

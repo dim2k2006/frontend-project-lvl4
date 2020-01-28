@@ -4,22 +4,30 @@ import flow from 'lodash/flow';
 import get from 'lodash/get';
 import find from 'lodash/find';
 import { withProps } from 'recompose';
-
 import { connect } from 'react-redux';
 import { getChannels, getActiveChannel } from '../../../redux/reducers';
+import * as actions from '../../../redux/actions';
 
-const Nav = ({ channelName }) => (
+const Nav = ({ channelName, removable, removeChannel }) => (
   <nav className="navbar navbar-light bg-light border-bottom w-100">
-    <h5 className="text-capitalize">{channelName}</h5>
+    <h5 className="text-capitalize mb-0">{channelName}</h5>
+
+    {removable && (
+      <button
+        type="button"
+        className="btn btn-danger btn-sm"
+        onClick={() => removeChannel()}
+      >
+        Remove channel
+      </button>
+    )}
   </nav>
 );
 
 Nav.propTypes = {
-  channelName: PropTypes.string,
-};
-
-Nav.defaultProps = {
-  channelName: '',
+  channelName: PropTypes.string.isRequired,
+  removable: PropTypes.bool.isRequired,
+  removeChannel: PropTypes.func.isRequired,
 };
 
 export default flow(
@@ -27,14 +35,16 @@ export default flow(
     const channels = get(props, 'channels');
     const activeChannel = get(props, 'activeChannel');
     const channel = find(channels, (ch) => ch.id === activeChannel);
-    const channelName = get(channel, 'name');
+    const channelName = get(channel, 'name', '');
+    const removable = get(channel, 'removable', false);
 
-    return { channelName };
+    return { channelName, removable };
   }),
   connect(
     (state) => ({
       channels: getChannels(state),
       activeChannel: getActiveChannel(state),
     }),
+    actions,
   ),
 )(Nav);

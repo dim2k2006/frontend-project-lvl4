@@ -7,11 +7,13 @@ import { getErrorMessage } from '../../../redux/reducers';
 import * as actions from '../../../redux/actions';
 
 const ErrorMessage = ({ message, resetErrorMessage }) => {
+  if (!message) return null;
+
   const componentClass = cn({
     alert: true,
     'alert-danger': true,
     fade: true,
-    show: !!message,
+    show: true,
   });
 
   return (
