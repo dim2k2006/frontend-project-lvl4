@@ -15,7 +15,7 @@ const ErrorMessage = ({ message, resetErrorMessage }) => {
   });
 
   return (
-    <div className="position-fixed fixed-top p-4">
+    <div className="position-fixed fixed-top p-4" style={{ zIndex: '9999' }}>
       <div className="container">
         <div className={componentClass} role="alert">
           {message}
