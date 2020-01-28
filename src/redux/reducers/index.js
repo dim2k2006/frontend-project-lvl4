@@ -2,10 +2,12 @@ import { createReducer } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 import * as actions from '../actions';
 import { getUserName as getName } from '../../utils';
-import {addChannelFailure} from "../actions";
 
 const channels = createReducer([], {
   [actions.addChannelSuccess](state, action) {
+    state.push(action.payload.channel);
+  },
+  [actions.receiveChannel](state, action) {
     state.push(action.payload.channel);
   },
 });

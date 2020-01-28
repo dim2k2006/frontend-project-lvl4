@@ -14,9 +14,15 @@ import MessageForm from '../MessageForm/index';
 import ErrorMessage from '../ErrorMessage/index';
 import AddChannelModal from '../AddChannelModal/index';
 import * as actions from '../../../redux/actions';
-import { getActiveChannel, getMessagesForChannel } from '../../../redux/reducers';
+import { getActiveChannel, getMessagesForChannel, getChannels } from '../../../redux/reducers';
 
-const Layout = ({ messages, activateChannel, receiveMessage }) => {
+const Layout = ({
+  messages,
+  channels,
+  activateChannel,
+  receiveMessage,
+  receiveChannel,
+}) => {
   const match = useRouteMatch();
 
   useEffect(() => {
@@ -35,6 +41,15 @@ const Layout = ({ messages, activateChannel, receiveMessage }) => {
       if (isMessageExist) return;
 
       receiveMessage({ message });
+    });
+
+    socket.on('newChannel', (data) => {
+      const channel = get(data, 'data.attributes');
+      const isChannelExist = find(channels, (c) => c.id === channel.id);
+
+      if (isChannelExist) return;
+
+      receiveChannel({ channel });
     });
 
     return () => {
@@ -69,12 +84,15 @@ const Layout = ({ messages, activateChannel, receiveMessage }) => {
 
 Layout.propTypes = {
   messages: PropTypes.arrayOf(PropTypes.object),
+  channels: PropTypes.arrayOf(PropTypes.object),
   activateChannel: PropTypes.func.isRequired,
   receiveMessage: PropTypes.func.isRequired,
+  receiveChannel: PropTypes.func.isRequired,
 };
 
 Layout.defaultProps = {
   messages: [],
+  channels: [],
 };
 
 export default flow(
@@ -82,8 +100,9 @@ export default flow(
     (state) => {
       const activeChannel = getActiveChannel(state);
       const messages = getMessagesForChannel(state, activeChannel);
+      const channels = getChannels(state);
 
-      return { messages };
+      return { messages, channels };
     },
     actions,
   ),

@@ -64,3 +64,5 @@ export const createChannel = (data, resetFn) => (dispatch) => {
       dispatch(addChannelFailure({ message: 'Something went wrong during creating the channel. Please try again.' }));
     });
 };
+
+export const receiveChannel = createAction('CHANNEL_RECEIVE');
