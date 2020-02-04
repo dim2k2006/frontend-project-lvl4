@@ -14,26 +14,28 @@ const Nav = ({
   removeChannel,
   editChannel,
 }) => (
-  <nav className="navbar navbar-light bg-light border-bottom w-100">
+  <nav className="navbar navbar-light bg-light border-bottom w-100 d-flex justify-content-between">
     <h5 className="text-capitalize mb-0">{channelName}</h5>
 
-    <button
-      type="button"
-      className="btn btn-secondary btn-sm"
-      onClick={() => editChannel()}
-    >
-      Edit channel
-    </button>
-
-    {removable && (
+    <div>
       <button
         type="button"
-        className="btn btn-danger btn-sm"
-        onClick={() => removeChannel()}
+        className="btn btn-secondary btn-sm"
+        onClick={() => editChannel()}
       >
-        Remove channel
+        Edit
       </button>
-    )}
+
+      {removable && (
+        <button
+          type="button"
+          className="btn btn-danger btn-sm ml-2"
+          onClick={() => removeChannel()}
+        >
+          Remove
+        </button>
+      )}
+    </div>
   </nav>
 );
 
