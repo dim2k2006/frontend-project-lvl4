@@ -8,9 +8,22 @@ import { connect } from 'react-redux';
 import { getChannels, getActiveChannel } from '../../../redux/reducers';
 import * as actions from '../../../redux/actions';
 
-const Nav = ({ channelName, removable, removeChannel }) => (
+const Nav = ({
+  channelName,
+  removable,
+  removeChannel,
+  editChannel,
+}) => (
   <nav className="navbar navbar-light bg-light border-bottom w-100">
     <h5 className="text-capitalize mb-0">{channelName}</h5>
+
+    <button
+      type="button"
+      className="btn btn-secondary btn-sm"
+      onClick={() => editChannel()}
+    >
+      Edit channel
+    </button>
 
     {removable && (
       <button
@@ -28,6 +41,7 @@ Nav.propTypes = {
   channelName: PropTypes.string.isRequired,
   removable: PropTypes.bool.isRequired,
   removeChannel: PropTypes.func.isRequired,
+  editChannel: PropTypes.func.isRequired,
 };
 
 export default flow(
