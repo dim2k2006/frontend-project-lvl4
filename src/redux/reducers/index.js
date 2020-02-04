@@ -1,5 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
+import find from 'lodash/find';
 import * as actions from '../actions';
 import { getUserName as getName } from '../../utils';
 
@@ -15,6 +16,11 @@ const channels = createReducer([], {
   },
   [actions.receiveRemovedChannel](state, action) {
     return state.filter((channel) => channel.id !== action.payload.id);
+  },
+  [actions.editChannelSuccess](state, action) {
+    const channel = find(state, (ch) => ch.id === action.payload.channel.id);
+
+    channel.name = action.payload.channel.name;
   },
 });
 
@@ -38,6 +44,18 @@ const channelRemovingState = createReducer('none', {
     return 'failed';
   },
   [actions.removeChannelSuccess]() {
+    return 'finished';
+  },
+});
+
+const channelEditingState = createReducer('none', {
+  [actions.editChannelRequest]() {
+    return 'requested';
+  },
+  [actions.editChannelFailure]() {
+    return 'failed';
+  },
+  [actions.editChannelSuccess]() {
     return 'finished';
   },
 });
@@ -119,12 +137,15 @@ export const getChannelAddingState = (state) => state.channelAddingState;
 
 export const getChannelRemovingState = (state) => state.channelRemovingState;
 
+export const getChannelEditingState = (state) => state.channelEditingState;
+
 export const getModalState = (state) => state.modalState;
 
 export default combineReducers({
   channels,
   channelAddingState,
   channelRemovingState,
+  channelEditingState,
   messages,
   messageSubmittingState,
   userName,
