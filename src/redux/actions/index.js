@@ -115,3 +115,5 @@ export const updateChannel = (channelId, data, resetFn) => (dispatch) => {
       dispatch(editChannelFailure({ message: 'Something went wrong during editing the channel. Please try again.' }));
     });
 };
+
+export const receiveEditedChannel = createAction('CHANNEL_RECEIVE_EDITED');

@@ -22,6 +22,11 @@ const channels = createReducer([], {
 
     channel.name = action.payload.channel.name;
   },
+  [actions.receiveEditedChannel](state, action) {
+    const channel = find(state, (ch) => ch.id === action.payload.channel.id);
+
+    channel.name = action.payload.channel.name;
+  },
 });
 
 const channelAddingState = createReducer('none', {

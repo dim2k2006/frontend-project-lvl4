@@ -25,6 +25,7 @@ const Layout = ({
   receiveMessage,
   receiveChannel,
   receiveRemovedChannel,
+  receiveEditedChannel,
 }) => {
   const match = useRouteMatch();
 
@@ -59,6 +60,12 @@ const Layout = ({
       const id = get(data, 'data.id');
 
       receiveRemovedChannel({ id });
+    });
+
+    socket.on('renameChannel', (data) => {
+      const channel = get(data, 'data.attributes');
+
+      receiveEditedChannel({ channel });
     });
 
     return () => {
