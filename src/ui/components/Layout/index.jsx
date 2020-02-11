@@ -11,7 +11,7 @@ import Aside from '../Aside';
 import Nav from '../Nav/index';
 import Messages from '../Messages/index';
 import MessageForm from '../MessageForm/index';
-import ErrorMessage from '../ErrorMessage/index';
+import ErrorMessage from '../ErrorMessage';
 import AddChannelModal from '../AddChannelModal';
 import EditChannelModal from '../EditChannelModal';
 import RemoveChannelModal from '../RemoveChannelModal/index';
