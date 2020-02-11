@@ -7,7 +7,7 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
-import Layout from '../Layout/index';
+import Layout from './Layout';
 
 const Root = ({ store }) => (
   <Provider store={store}>

@@ -7,16 +7,16 @@ import find from 'lodash/find';
 import toNumber from 'lodash/toNumber';
 import io from 'socket.io-client/dist/socket.io.js';
 import { connect } from 'react-redux';
-import Aside from '../Aside';
-import Nav from '../Nav/index';
-import Messages from '../Messages/index';
-import MessageForm from '../MessageForm/index';
-import ErrorMessage from '../ErrorMessage';
-import AddChannelModal from '../AddChannelModal';
-import EditChannelModal from '../EditChannelModal';
-import RemoveChannelModal from '../RemoveChannelModal/index';
-import * as actions from '../../../redux/actions';
-import { getActiveChannel, getMessagesForChannel, getChannels } from '../../../redux/reducers';
+import Aside from './Aside';
+import Nav from './Nav';
+import Messages from './Messages';
+import MessageForm from './MessageForm';
+import ErrorMessage from './ErrorMessage';
+import AddChannelModal from './AddChannelModal';
+import EditChannelModal from './EditChannelModal';
+import RemoveChannelModal from './RemoveChannelModal';
+import * as actions from '../../redux/actions';
+import { getActiveChannel, getMessagesForChannel, getChannels } from '../../redux/reducers';
 
 const Layout = ({
   messages,

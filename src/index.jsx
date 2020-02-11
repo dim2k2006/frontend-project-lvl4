@@ -5,7 +5,7 @@ import 'regenerator-runtime/runtime';
 import gon from 'gon';
 import { configureStore } from '@reduxjs/toolkit';
 import '../assets/application.scss';
-import Root from './ui/components/Root/index';
+import Root from './ui/components/Root';
 import reducer from './redux/reducers';
 
 // import faker from 'faker';

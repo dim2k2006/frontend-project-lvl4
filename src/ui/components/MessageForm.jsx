@@ -4,8 +4,8 @@ import flow from 'lodash/flow';
 import get from 'lodash/get';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
-import * as actions from '../../../redux/actions';
-import { getUserName, getActiveChannel, getMessageSubmittingState } from '../../../redux/reducers';
+import * as actions from '../../redux/actions';
+import { getUserName, getActiveChannel, getMessageSubmittingState } from '../../redux/reducers';
 
 const MessageForm = ({
   userName,

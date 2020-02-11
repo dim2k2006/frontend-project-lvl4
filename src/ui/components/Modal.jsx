@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import flow from 'lodash/flow';
 import { connect } from 'react-redux';
-import Portal from '../Portal';
-import * as actions from '../../../redux/actions';
+import Portal from './Portal';
+import * as actions from '../../redux/actions';
 
 const Modal = ({ title, children, resetModal }) => (
   <Portal id="modal">

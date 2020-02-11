@@ -2,8 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import flow from 'lodash/flow';
 import { connect } from 'react-redux';
-import Message from '../Message';
-import { getActiveChannel, getMessagesForChannel } from '../../../redux/reducers';
+import Message from './Message';
+import { getActiveChannel, getMessagesForChannel } from '../../redux/reducers';
 
 const Messages = ({ messages }) => {
   const container = useRef(null);

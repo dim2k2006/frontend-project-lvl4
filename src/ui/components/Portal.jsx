@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
-import usePortal from '../../hooks/usePortal';
+import usePortal from '../hooks/usePortal';
 
 const Portal = ({ id, children }) => {
   const target = usePortal(id);

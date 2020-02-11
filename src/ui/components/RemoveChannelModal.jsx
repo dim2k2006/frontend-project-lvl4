@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import flow from 'lodash/flow';
 import { connect } from 'react-redux';
-import Modal from '../Modal';
-import { getModalState, getChannelRemovingState, getActiveChannel } from '../../../redux/reducers';
-import * as actions from '../../../redux/actions';
+import Modal from './Modal';
+import { getModalState, getChannelRemovingState, getActiveChannel } from '../../redux/reducers';
+import * as actions from '../../redux/actions';
 
 const RemoveChannelModal = ({
   modalState,

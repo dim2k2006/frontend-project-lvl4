@@ -5,8 +5,8 @@ import get from 'lodash/get';
 import find from 'lodash/find';
 import { withProps } from 'recompose';
 import { connect } from 'react-redux';
-import { getChannels, getActiveChannel } from '../../../redux/reducers';
-import * as actions from '../../../redux/actions';
+import { getChannels, getActiveChannel } from '../../redux/reducers';
+import * as actions from '../../redux/actions';
 
 const Nav = ({
   channelName,
