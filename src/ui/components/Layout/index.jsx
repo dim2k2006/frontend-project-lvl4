@@ -13,7 +13,7 @@ import Messages from '../Messages/index';
 import MessageForm from '../MessageForm/index';
 import ErrorMessage from '../ErrorMessage/index';
 import AddChannelModal from '../AddChannelModal';
-import EditChannelModal from '../EditChannelModal/index';
+import EditChannelModal from '../EditChannelModal';
 import RemoveChannelModal from '../RemoveChannelModal/index';
 import * as actions from '../../../redux/actions';
 import { getActiveChannel, getMessagesForChannel, getChannels } from '../../../redux/reducers';

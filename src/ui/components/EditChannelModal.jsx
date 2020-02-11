@@ -5,14 +5,14 @@ import get from 'lodash/get';
 import find from 'lodash/find';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
-import Modal from '../Modal';
+import Modal from './Modal';
 import {
   getModalState,
   getChannelEditingState,
   getActiveChannel,
   getChannels,
-} from '../../../redux/reducers';
-import * as actions from '../../../redux/actions';
+} from '../../redux/reducers';
+import * as actions from '../../redux/actions';
 
 const EditChannelModal = ({
   modalState,
