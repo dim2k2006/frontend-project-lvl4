@@ -1,12 +1,12 @@
 doctype html
-html(lang="en")
+html(lang="en", class="h-100")
   head
     title= Title
     link(rel="stylesheet" href=assetPath('main.css'))
     script.
       var gon = !{JSON.stringify(gon)};
 
-  body
+  body(class="h-100")
     div.h-100(id="chat")
 
     div(id="modal")
