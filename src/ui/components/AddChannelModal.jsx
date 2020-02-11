@@ -4,9 +4,9 @@ import flow from 'lodash/flow';
 import get from 'lodash/get';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
-import Modal from '../Modal';
-import { getModalState, getChannelAddingState } from '../../../redux/reducers';
-import * as actions from '../../../redux/actions';
+import Modal from './Modal';
+import { getModalState, getChannelAddingState } from '../../redux/reducers';
+import * as actions from '../../redux/actions';
 
 const AddChannelModal = ({ modalState, channelAddingState, onSubmit }) => {
   if (modalState !== 'addingChannel') return null;

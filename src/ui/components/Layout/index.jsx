@@ -12,7 +12,7 @@ import Nav from '../Nav/index';
 import Messages from '../Messages/index';
 import MessageForm from '../MessageForm/index';
 import ErrorMessage from '../ErrorMessage/index';
-import AddChannelModal from '../AddChannelModal/index';
+import AddChannelModal from '../AddChannelModal';
 import EditChannelModal from '../EditChannelModal/index';
 import RemoveChannelModal from '../RemoveChannelModal/index';
 import * as actions from '../../../redux/actions';
