@@ -7,7 +7,7 @@ import find from 'lodash/find';
 import toNumber from 'lodash/toNumber';
 import io from 'socket.io-client/dist/socket.io.js';
 import { connect } from 'react-redux';
-import Aside from '../Aside/index';
+import Aside from '../Aside';
 import Nav from '../Nav/index';
 import Messages from '../Messages/index';
 import MessageForm from '../MessageForm/index';

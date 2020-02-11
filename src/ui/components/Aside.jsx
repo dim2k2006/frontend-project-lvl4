@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Octicon, { Plus } from '@primer/octicons-react';
-import { getChannels, getUserName, getActiveChannel } from '../../../redux/reducers';
-import * as actions from '../../../redux/actions';
+import { getChannels, getUserName, getActiveChannel } from '../../redux/reducers';
+import * as actions from '../../redux/actions';
 
 const Aside = ({
   channels,
