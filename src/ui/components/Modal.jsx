@@ -2,11 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import flow from 'lodash/flow';
 import { connect } from 'react-redux';
-import Portal from './Portal';
 import * as actions from '../../redux/actions';
 
 const Modal = ({ title, children, resetModal }) => (
-  <Portal id="modal">
+  <>
     <div
       className="modal fade show d-block"
       tabIndex="-1"
@@ -36,7 +35,7 @@ const Modal = ({ title, children, resetModal }) => (
     </div>
 
     <div className="modal-backdrop fade show" />
-  </Portal>
+  </>
 );
 
 Modal.propTypes = {
