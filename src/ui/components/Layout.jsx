@@ -16,7 +16,8 @@ import AddChannelModal from './AddChannelModal';
 import EditChannelModal from './EditChannelModal';
 import RemoveChannelModal from './RemoveChannelModal';
 import * as actions from '../../redux/actions';
-import { getActiveChannel, getMessagesForChannel, getChannels } from '../../redux/reducers';
+import { getActiveChannel, getChannels } from '../../redux/reducers';
+import { getMessagesForChannel } from '../../redux/slices/messages';
 
 const Layout = ({
   messages,

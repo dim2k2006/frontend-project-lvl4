@@ -1,14 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { combineReducers } from 'redux';
+import { actions as messageSubmittingStateActions } from './messageSubmittingState';
 
 const messages = createSlice({
   name: 'messages',
   initialState: [],
   reducer: {
-    submitMessageSuccess(state, action) {
+    receiveMessage(state, action) {
       state.push(action.payload.message);
     },
-    receiveMessage(state, action) {
+  },
+  extraReducers: {
+    [messageSubmittingStateActions.submitMessageSuccess](state, action) {
       state.push(action.payload.message);
     },
   },
@@ -18,6 +20,9 @@ const actions = { ...messages.actions };
 
 export { actions };
 
-export default combineReducers({
-  messages: messages.reducer,
-});
+export const getMessages = (state) => state.messages;
+
+export const getMessagesForChannel = (state, channelId) => state.messages
+  .filter((m) => m.channelId === channelId);
+
+export default messages.reducer;
