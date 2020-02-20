@@ -6,7 +6,7 @@ import gon from 'gon';
 import { configureStore } from '@reduxjs/toolkit';
 import '../assets/application.scss';
 import Root from './ui/components/Root';
-import reducer from './redux/reducers';
+import slices from './redux/slices';
 
 // import faker from 'faker';
 // import cookies from 'js-cookie';
@@ -17,7 +17,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const store = configureStore({
-  reducer,
+  reducer: slices,
   preloadedState: { ...gon },
 });
 

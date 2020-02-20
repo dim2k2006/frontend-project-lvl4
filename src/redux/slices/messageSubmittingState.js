@@ -1,13 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import get from 'lodash/get';
-import { useDispatch } from 'react-redux';
 import routes from '../../routes';
 
 const messageSubmittingState = createSlice({
   name: 'messageSubmittingState',
   initialState: 'none',
-  reducer: {
+  reducers: {
     submitMessageRequest() {
       return 'requested';
     },
@@ -26,11 +25,7 @@ const {
   submitMessageFailure,
 } = messageSubmittingState.actions;
 
-const actions = { ...messageSubmittingState.actions };
-
-const submitMessage = (channelId, data, resetFn) => {
-  const dispatch = useDispatch();
-
+const submitMessage = (channelId, data, resetFn) => (dispatch) => {
   dispatch(submitMessageRequest());
 
   return axios({
@@ -50,6 +45,10 @@ const submitMessage = (channelId, data, resetFn) => {
     });
 };
 
-export { actions, submitMessage };
+const actions = { ...messageSubmittingState.actions, submitMessage };
 
-export default messageSubmittingState.redcuer;
+export { actions };
+
+export const getMessageSubmittingState = (state) => state.messageSubmittingState;
+
+export default messageSubmittingState.reducer;

@@ -1,5 +1,4 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { combineReducers } from 'redux';
 import find from 'lodash/find';
 import * as actions from '../actions';
 import { getUserName as getName } from '../../utils';
@@ -90,18 +89,6 @@ const errorMessage = createReducer('', {
   },
 });
 
-const messageSubmittingState = createReducer('none', {
-  [actions.submitMessageRequest]() {
-    return 'requested';
-  },
-  [actions.submitMessageFailure]() {
-    return 'failed';
-  },
-  [actions.submitMessageSuccess]() {
-    return 'finished';
-  },
-});
-
 const activeChannel = createReducer(0, {
   [actions.activateChannel](state, action) {
     return action.payload.channel;
@@ -134,8 +121,6 @@ export const getActiveChannel = (state) => state.activeChannel;
 
 export const getUserName = (state) => state.userName;
 
-export const getMessageSubmittingState = (state) => state.messageSubmittingState;
-
 export const getErrorMessage = (state) => state.errorMessage;
 
 export const getChannelAddingState = (state) => state.channelAddingState;
@@ -146,15 +131,26 @@ export const getChannelEditingState = (state) => state.channelEditingState;
 
 export const getModalState = (state) => state.modalState;
 
-export default combineReducers({
+// export default combineReducers({
+// //   channels,
+// //   channelAddingState,
+// //   channelRemovingState,
+// //   channelEditingState,
+// //   messages,
+// //   userName,
+// //   activeChannel,
+// //   errorMessage,
+// //   modalState,
+// // });
+
+export default {
   channels,
   channelAddingState,
   channelRemovingState,
   channelEditingState,
   messages,
-  messageSubmittingState,
   userName,
   activeChannel,
   errorMessage,
   modalState,
-});
+};
