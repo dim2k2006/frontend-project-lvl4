@@ -1,97 +1,81 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import flow from 'lodash/flow';
 import get from 'lodash/get';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Formik } from 'formik';
-import * as actions from '../../redux/actions';
-import { getUserName, getActiveChannel, getMessageSubmittingState } from '../../redux/reducers';
+import { actions } from '../../redux/slices';
+import { getUserName, getActiveChannel } from '../../redux/reducers';
+import { getMessageSubmittingState } from '../../redux/slices/messageSubmittingState';
 
-const MessageForm = ({
-  userName,
-  activeChannel,
-  submittingState,
-  onSubmit,
-}) => (
-  <Formik
-    initialValues={{ message: '' }}
-    onSubmit={onSubmit(userName, activeChannel)}
-  >
-    {(props) => (
-      <div
-        role="presentation"
-        onKeyDown={(event) => {
-          const message = get(props, 'values.message', '');
+const MessageForm = () => {
+  const userName = useSelector(getUserName);
+  const activeChannel = useSelector(getActiveChannel);
+  const submittingState = useSelector(getMessageSubmittingState);
+  const dispatch = useDispatch();
+  const onSubmit = (values, { resetForm }) => {
+    const text = get(values, 'message');
+    const data = {
+      data: {
+        attributes: {
+          text,
+          author: userName,
+        },
+      },
+    };
 
-          if (!message.length || event.keyCode !== 13) return;
+    dispatch(actions.submitMessage(activeChannel, data, resetForm));
+  };
 
-          event.preventDefault();
+  return (
+    <Formik
+      initialValues={{ message: '' }}
+      onSubmit={onSubmit}
+    >
+      {(props) => (
+        <div
+          role="presentation"
+          onKeyDown={(event) => {
+            const message = get(props, 'values.message', '');
 
-          props.handleSubmit();
-        }}
-      >
-        <form
-          onSubmit={props.handleSubmit}
-          className="w-100 p-3 position-relative"
+            if (!message.length || event.keyCode !== 13) return;
+
+            event.preventDefault();
+
+            props.handleSubmit();
+          }}
         >
-          <textarea
-            name="message"
-            className="form-control w-100"
-            placeholder="Enter Your Message"
-            value={props.values.message}
-            onChange={props.handleChange}
-            onBlur={props.handleBlur}
-            disabled={submittingState === 'requested'}
-          />
+          <form
+            onSubmit={props.handleSubmit}
+            className="w-100 p-3 position-relative"
+          >
+            <textarea
+              name="message"
+              className="form-control w-100"
+              placeholder="Enter Your Message"
+              value={props.values.message}
+              onChange={props.handleChange}
+              onBlur={props.handleBlur}
+              disabled={submittingState === 'requested'}
+            />
 
-          {submittingState === 'requested' && (
-            <div
-              className="spinner-border text-info position-absolute"
-              role="status"
-              style={{
-                top: '50%',
-                left: '50%',
-                marginTop: '-16px',
-                marginLeft: '-16px',
-              }}
-            >
-              <span className="sr-only">Loading...</span>
-            </div>
-          )}
-        </form>
-      </div>
-    )}
-  </Formik>
-);
-
-MessageForm.propTypes = {
-  userName: PropTypes.string.isRequired,
-  submittingState: PropTypes.string.isRequired,
-  activeChannel: PropTypes.number.isRequired,
-  onSubmit: PropTypes.func.isRequired,
+            {submittingState === 'requested' && (
+              <div
+                className="spinner-border text-info position-absolute"
+                role="status"
+                style={{
+                  top: '50%',
+                  left: '50%',
+                  marginTop: '-16px',
+                  marginLeft: '-16px',
+                }}
+              >
+                <span className="sr-only">Loading...</span>
+              </div>
+            )}
+          </form>
+        </div>
+      )}
+    </Formik>
+  );
 };
 
-export default flow(
-  connect(
-    (state) => ({
-      userName: getUserName(state),
-      activeChannel: getActiveChannel(state),
-      submittingState: getMessageSubmittingState(state),
-    }),
-    (dispatch) => ({
-      onSubmit: (author, channelId) => (values, { resetForm }) => {
-        const text = get(values, 'message');
-        const data = {
-          data: {
-            attributes: {
-              text,
-              author,
-            },
-          },
-        };
-
-        dispatch(actions.submitMessage(channelId, data, resetForm));
-      },
-    }),
-  ),
-)(MessageForm);
+export default MessageForm;
