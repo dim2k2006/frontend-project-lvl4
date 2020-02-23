@@ -7,11 +7,11 @@ import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import Modal from './Modal';
 import {
-  getModalState,
   getChannelEditingState,
   getActiveChannel,
   getChannels,
 } from '../../redux/reducers';
+import { getModalState } from '../../redux/slices/modalState';
 import * as actions from '../../redux/actions';
 
 const EditChannelModal = ({
