@@ -28,18 +28,6 @@ const channels = createReducer([], {
   },
 });
 
-const channelRemovingState = createReducer('none', {
-  [actions.removeChannelRequest]() {
-    return 'requested';
-  },
-  [actions.removeChannelFailure]() {
-    return 'failed';
-  },
-  [actions.removeChannelSuccess]() {
-    return 'finished';
-  },
-});
-
 const channelEditingState = createReducer('none', {
   [actions.editChannelRequest]() {
     return 'requested';
@@ -82,8 +70,6 @@ export const getUserName = (state) => state.userName;
 
 export const getErrorMessage = (state) => state.errorMessage;
 
-export const getChannelRemovingState = (state) => state.channelRemovingState;
-
 export const getChannelEditingState = (state) => state.channelEditingState;
 
 // export default combineReducers({
@@ -100,7 +86,6 @@ export const getChannelEditingState = (state) => state.channelEditingState;
 
 export default {
   channels,
-  channelRemovingState,
   channelEditingState,
   userName,
   activeChannel,
