@@ -15,32 +15,6 @@ export const editChannel = createAction('CHANNEL_EDIT');
 
 export const resetModal = createAction('MODAL_RESET');
 
-export const addChannelRequest = createAction('CHANNEL_ADD_REQUEST');
-export const addChannelSuccess = createAction('CHANNEL_ADD_SUCCESS');
-export const addChannelFailure = createAction('CHANNEL_ADD_FAILURE');
-
-export const createChannel = (data, resetFn) => (dispatch) => {
-  dispatch(addChannelRequest());
-
-  return axios({
-    method: 'POST',
-    url: routes.channelsPath(),
-    data,
-  })
-    .then((response) => {
-      const channel = get(response, 'data.data.attributes');
-
-      dispatch(addChannelSuccess({ channel }));
-
-      resetFn();
-
-      dispatch(resetModal());
-    })
-    .catch(() => {
-      dispatch(addChannelFailure({ message: 'Something went wrong during creating the channel. Please try again.' }));
-    });
-};
-
 export const receiveChannel = createAction('CHANNEL_RECEIVE');
 
 export const removeChannelRequest = createAction('CHANNEL_REMOVE_REQUEST');

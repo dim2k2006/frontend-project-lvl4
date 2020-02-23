@@ -28,18 +28,6 @@ const channels = createReducer([], {
   },
 });
 
-const channelAddingState = createReducer('none', {
-  [actions.addChannelRequest]() {
-    return 'requested';
-  },
-  [actions.addChannelFailure]() {
-    return 'failed';
-  },
-  [actions.addChannelSuccess]() {
-    return 'finished';
-  },
-});
-
 const channelRemovingState = createReducer('none', {
   [actions.removeChannelRequest]() {
     return 'requested';
@@ -109,8 +97,6 @@ export const getUserName = (state) => state.userName;
 
 export const getErrorMessage = (state) => state.errorMessage;
 
-export const getChannelAddingState = (state) => state.channelAddingState;
-
 export const getChannelRemovingState = (state) => state.channelRemovingState;
 
 export const getChannelEditingState = (state) => state.channelEditingState;
@@ -131,7 +117,6 @@ export const getModalState = (state) => state.modalState;
 
 export default {
   channels,
-  channelAddingState,
   channelRemovingState,
   channelEditingState,
   userName,
