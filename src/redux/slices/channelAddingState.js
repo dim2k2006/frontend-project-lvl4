@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import get from 'lodash/get';
 import routes from '../../routes';
+import { actions as modalStateActions } from './modalState';
 
 const channelAddingState = createSlice({
   name: 'channelAddingState',
@@ -40,7 +41,7 @@ export const createChannel = (data, resetFn) => (dispatch) => {
 
       resetFn();
 
-      // dispatch(resetModal());
+      dispatch(modalStateActions.resetModal());
     })
     .catch(() => {
       dispatch(addChannelFailure({ message: 'Something went wrong during creating the channel. Please try again.' }));

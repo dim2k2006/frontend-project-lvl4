@@ -74,21 +74,6 @@ const activeChannel = createReducer(0, {
   },
 });
 
-const modalState = createReducer('none', {
-  [actions.addChannel]() {
-    return 'addingChannel';
-  },
-  [actions.removeChannel]() {
-    return 'removingChannel';
-  },
-  [actions.editChannel]() {
-    return 'editingChannel';
-  },
-  [actions.resetModal]() {
-    return 'none';
-  },
-});
-
 export const getChannels = (state) => state.channels;
 
 export const getActiveChannel = (state) => state.activeChannel;
@@ -100,8 +85,6 @@ export const getErrorMessage = (state) => state.errorMessage;
 export const getChannelRemovingState = (state) => state.channelRemovingState;
 
 export const getChannelEditingState = (state) => state.channelEditingState;
-
-export const getModalState = (state) => state.modalState;
 
 // export default combineReducers({
 // //   channels,
@@ -122,5 +105,4 @@ export default {
   userName,
   activeChannel,
   errorMessage,
-  modalState,
 };

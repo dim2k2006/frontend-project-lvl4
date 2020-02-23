@@ -9,12 +9,6 @@ export const receiveMessage = createAction('MESSAGE_RECEIVE');
 
 export const resetErrorMessage = createAction('ERROR_MESSAGE_RESET');
 
-export const addChannel = createAction('CHANNEL_ADD');
-export const removeChannel = createAction('CHANNEL_REMOVE');
-export const editChannel = createAction('CHANNEL_EDIT');
-
-export const resetModal = createAction('MODAL_RESET');
-
 export const receiveChannel = createAction('CHANNEL_RECEIVE');
 
 export const removeChannelRequest = createAction('CHANNEL_REMOVE_REQUEST');
