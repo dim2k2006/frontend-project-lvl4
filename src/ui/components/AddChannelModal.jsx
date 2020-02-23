@@ -3,8 +3,8 @@ import get from 'lodash/get';
 import { useSelector, useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 import Modal from './Modal';
-import { getModalState } from '../../redux/reducers';
 import { getChannelAddingState } from '../../redux/slices/channelAddingState';
+import { getModalState } from '../../redux/slices/modalState';
 import { actions } from '../../redux/slices';
 
 const AddChannelModal = () => {
