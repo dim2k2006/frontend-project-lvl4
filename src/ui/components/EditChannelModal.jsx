@@ -1,33 +1,42 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import flow from 'lodash/flow';
 import get from 'lodash/get';
 import find from 'lodash/find';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 import Modal from './Modal';
-import {
-  getChannelEditingState,
-  getActiveChannel,
-  getChannels,
-} from '../../redux/reducers';
+import { getActiveChannel, getChannels } from '../../redux/reducers';
 import { getModalState } from '../../redux/slices/modalState';
-import * as actions from '../../redux/actions';
+import { getChannelEditingState } from '../../redux/slices/channelEditingState';
+import { actions } from '../../redux/slices';
 
-const EditChannelModal = ({
-  modalState,
-  channelName,
-  activeChannel,
-  channelEditingState,
-  onSubmit,
-}) => {
+const EditChannelModal = () => {
+  const modalState = useSelector(getModalState);
+  const channelEditingState = useSelector(getChannelEditingState);
+  const activeChannel = useSelector(getActiveChannel);
+  const channels = useSelector(getChannels);
+  const activeChannelData = find(channels, (channel) => channel.id === activeChannel);
+  const channelName = get(activeChannelData, 'name');
+  const dispatch = useDispatch();
+  const onSubmit = (values, { resetForm }) => {
+    const name = get(values, 'name');
+    const data = {
+      data: {
+        attributes: {
+          name,
+        },
+      },
+    };
+
+    dispatch(actions.updateChannel(activeChannel, data, resetForm));
+  };
+
   if (modalState !== 'editingChannel') return null;
 
   return (
     <Modal title="Edit channel">
       <Formik
         initialValues={{ name: channelName }}
-        onSubmit={onSubmit(activeChannel)}
+        onSubmit={onSubmit}
       >
         {(props) => (
           <form
@@ -61,48 +70,4 @@ const EditChannelModal = ({
   );
 };
 
-EditChannelModal.propTypes = {
-  modalState: PropTypes.string.isRequired,
-  channelName: PropTypes.string,
-  activeChannel: PropTypes.number.isRequired,
-  channelEditingState: PropTypes.string.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-};
-
-EditChannelModal.defaultProps = {
-  channelName: '',
-};
-
-export default flow(
-  connect(
-    (state) => {
-      const modalState = getModalState(state);
-      const channelEditingState = getChannelEditingState(state);
-      const activeChannel = getActiveChannel(state);
-      const channels = getChannels(state);
-      const activeChannelData = find(channels, (channel) => channel.id === activeChannel);
-      const channelName = get(activeChannelData, 'name');
-
-      return {
-        modalState,
-        channelName,
-        activeChannel,
-        channelEditingState,
-      };
-    },
-    (dispatch) => ({
-      onSubmit: (channelId) => (values, { resetForm }) => {
-        const name = get(values, 'name');
-        const data = {
-          data: {
-            attributes: {
-              name,
-            },
-          },
-        };
-
-        dispatch(actions.updateChannel(channelId, data, resetForm));
-      },
-    }),
-  ),
-)(EditChannelModal);
+export default EditChannelModal;

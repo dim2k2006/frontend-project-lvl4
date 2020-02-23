@@ -7,6 +7,7 @@ import messages, { actions as messagesActions } from './messages';
 
 import channelAddingState, { actions as channelAddingStateActions } from './channelAddingState';
 import channelRemovingState, { actions as channelRemovingStateActions } from './channelRemovingState';
+import channelEditingState, { actions as channelEditingStateActions } from './channelEditingState';
 
 import modalState, { actions as modalStateActions } from './modalState';
 
@@ -15,6 +16,7 @@ export default combineReducers({
   messages,
   channelAddingState,
   channelRemovingState,
+  channelEditingState,
   modalState,
   ...reducers,
 });
@@ -24,6 +26,7 @@ const actions = {
   ...messagesActions,
   ...channelAddingStateActions,
   ...channelRemovingStateActions,
+  ...channelEditingStateActions,
   ...modalStateActions,
 };
 

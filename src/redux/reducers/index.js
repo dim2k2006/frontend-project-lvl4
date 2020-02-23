@@ -28,18 +28,6 @@ const channels = createReducer([], {
   },
 });
 
-const channelEditingState = createReducer('none', {
-  [actions.editChannelRequest]() {
-    return 'requested';
-  },
-  [actions.editChannelFailure]() {
-    return 'failed';
-  },
-  [actions.editChannelSuccess]() {
-    return 'finished';
-  },
-});
-
 const userName = createReducer(getName(), {
 
 });
@@ -70,8 +58,6 @@ export const getUserName = (state) => state.userName;
 
 export const getErrorMessage = (state) => state.errorMessage;
 
-export const getChannelEditingState = (state) => state.channelEditingState;
-
 // export default combineReducers({
 // //   channels,
 // //   channelAddingState,
@@ -86,7 +72,6 @@ export const getChannelEditingState = (state) => state.channelEditingState;
 
 export default {
   channels,
-  channelEditingState,
   userName,
   activeChannel,
   errorMessage,
