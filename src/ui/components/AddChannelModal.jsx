@@ -1,14 +1,29 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import flow from 'lodash/flow';
 import get from 'lodash/get';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 import Modal from './Modal';
-import { getModalState, getChannelAddingState } from '../../redux/reducers';
-import * as actions from '../../redux/actions';
+import { getModalState } from '../../redux/reducers';
+import { getChannelAddingState } from '../../redux/slices/channelAddingState';
+import { actions } from '../../redux/slices';
 
-const AddChannelModal = ({ modalState, channelAddingState, onSubmit }) => {
+const AddChannelModal = () => {
+  const modalState = useSelector(getModalState);
+  const channelAddingState = useSelector(getChannelAddingState);
+  const dispatch = useDispatch();
+  const onSubmit = (values, { resetForm }) => {
+    const name = get(values, 'name');
+    const data = {
+      data: {
+        attributes: {
+          name,
+        },
+      },
+    };
+
+    dispatch(actions.createChannel(data, resetForm));
+  };
+
   if (modalState !== 'addingChannel') return null;
 
   return (
@@ -49,31 +64,4 @@ const AddChannelModal = ({ modalState, channelAddingState, onSubmit }) => {
   );
 };
 
-AddChannelModal.propTypes = {
-  modalState: PropTypes.string.isRequired,
-  channelAddingState: PropTypes.string.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-};
-
-export default flow(
-  connect(
-    (state) => ({
-      modalState: getModalState(state),
-      channelAddingState: getChannelAddingState(state),
-    }),
-    (dispatch) => ({
-      onSubmit: (values, { resetForm }) => {
-        const name = get(values, 'name');
-        const data = {
-          data: {
-            attributes: {
-              name,
-            },
-          },
-        };
-
-        dispatch(actions.createChannel(data, resetForm));
-      },
-    }),
-  ),
-)(AddChannelModal);
+export default AddChannelModal;
