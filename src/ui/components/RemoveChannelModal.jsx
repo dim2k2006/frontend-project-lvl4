@@ -1,18 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import flow from 'lodash/flow';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Modal from './Modal';
-import { getModalState, getChannelRemovingState, getActiveChannel } from '../../redux/reducers';
-import * as actions from '../../redux/actions';
+import { getChannelRemovingState, getActiveChannel } from '../../redux/reducers';
+import { getModalState } from '../../redux/slices/modalState';
+import { actions } from '../../redux/slices';
 
-const RemoveChannelModal = ({
-  modalState,
-  channelRemovingState,
-  activeChannel,
-  deleteChannel,
-  resetModal,
-}) => {
+const RemoveChannelModal = () => {
+  const modalState = useSelector(getModalState);
+  const channelRemovingState = useSelector(getChannelRemovingState);
+  const activeChannel = useSelector(getActiveChannel);
+  const dispatch = useDispatch();
+
   if (modalState !== 'removingChannel') return null;
 
   return (
@@ -21,7 +19,7 @@ const RemoveChannelModal = ({
         <button
           className="btn btn-secondary"
           type="button"
-          onClick={() => resetModal()}
+          onClick={() => dispatch(actions.resetModal())}
         >
           Dismiss
         </button>
@@ -29,7 +27,7 @@ const RemoveChannelModal = ({
         <button
           className="btn btn-secondary"
           type="button"
-          onClick={() => deleteChannel(activeChannel)}
+          onClick={() => dispatch(actions.deleteChannel(activeChannel))}
           disabled={channelRemovingState === 'requested'}
         >
           {channelRemovingState === 'requested' && (
@@ -43,20 +41,4 @@ const RemoveChannelModal = ({
   );
 };
 
-RemoveChannelModal.propTypes = {
-  modalState: PropTypes.string.isRequired,
-  channelRemovingState: PropTypes.string.isRequired,
-  activeChannel: PropTypes.number.isRequired,
-  deleteChannel: PropTypes.func.isRequired,
-};
-
-export default flow(
-  connect(
-    (state) => ({
-      modalState: getModalState(state),
-      channelRemovingState: getChannelRemovingState(state),
-      activeChannel: getActiveChannel(state),
-    }),
-    actions,
-  ),
-)(RemoveChannelModal);
+export default RemoveChannelModal;
