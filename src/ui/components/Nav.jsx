@@ -5,7 +5,7 @@ import get from 'lodash/get';
 import find from 'lodash/find';
 import { withProps } from 'recompose';
 import { connect } from 'react-redux';
-import { getChannels } from '../../redux/reducers';
+import { getChannels } from '../../redux/slices/channels';
 import { getActiveChannel } from '../../redux/slices/activeChannel';
 import { actions } from '../../redux/slices';
 
