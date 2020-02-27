@@ -1,7 +1,5 @@
 import { combineReducers } from 'redux';
 
-import reducers from '../reducers';
-
 import messageSubmittingState, { actions as messageSubmittingStateActions } from './messageSubmittingState';
 import messages, { actions as messagesActions } from './messages';
 
@@ -13,6 +11,8 @@ import channels, { actions as channelsActions } from './channels';
 import modalState, { actions as modalStateActions } from './modalState';
 
 import activeChannel, { actions as activeChannelActions } from './activeChannel';
+
+import errorMessage, { actions as errorMessageActions } from './errorMessage';
 
 import userName from './userName';
 
@@ -26,7 +26,7 @@ export default combineReducers({
   modalState,
   activeChannel,
   userName,
-  ...reducers,
+  errorMessage,
 });
 
 const actions = {
@@ -38,6 +38,7 @@ const actions = {
   ...channelsActions,
   ...modalStateActions,
   ...activeChannelActions,
+  ...errorMessageActions,
 };
 
 export { actions };
