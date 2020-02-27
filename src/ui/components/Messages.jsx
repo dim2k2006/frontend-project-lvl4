@@ -1,13 +1,13 @@
 import React, { useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
-import flow from 'lodash/flow';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Message from './Message';
 import { getActiveChannel } from '../../redux/slices/activeChannel';
 import { getMessagesForChannel } from '../../redux/slices/messages';
 
-const Messages = ({ messages }) => {
+const Messages = () => {
   const container = useRef(null);
+  const activeChannel = useSelector(getActiveChannel);
+  const messages = useSelector((state) => getMessagesForChannel(state, activeChannel));
 
   useEffect(() => {
     container.current.scrollTo(0, 1e10);
@@ -29,21 +29,4 @@ const Messages = ({ messages }) => {
   );
 };
 
-Messages.propTypes = {
-  messages: PropTypes.arrayOf(PropTypes.object),
-};
-
-Messages.defaultProps = {
-  messages: [],
-};
-
-export default flow(
-  connect(
-    (state) => {
-      const activeChannel = getActiveChannel(state);
-      const messages = getMessagesForChannel(state, activeChannel);
-
-      return { messages };
-    },
-  ),
-)(Messages);
+export default Messages;
