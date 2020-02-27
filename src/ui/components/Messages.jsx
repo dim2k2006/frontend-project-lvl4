@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import flow from 'lodash/flow';
 import { connect } from 'react-redux';
 import Message from './Message';
-import { getActiveChannel } from '../../redux/reducers';
+import { getActiveChannel } from '../../redux/slices/activeChannel';
 import { getMessagesForChannel } from '../../redux/slices/messages';
 
 const Messages = ({ messages }) => {
