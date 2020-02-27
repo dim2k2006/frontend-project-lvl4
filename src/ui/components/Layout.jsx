@@ -13,9 +13,8 @@ import ErrorMessage from './ErrorMessage';
 import AddChannelModal from './AddChannelModal';
 import EditChannelModal from './EditChannelModal';
 import RemoveChannelModal from './RemoveChannelModal';
-import * as actions from '../../redux/actions';
-import { actions as sliceActions } from '../../redux/slices';
-import { getChannels } from '../../redux/reducers';
+import { actions } from '../../redux/slices';
+import { getChannels } from '../../redux/slices/channels';
 import { getActiveChannel } from '../../redux/slices/activeChannel';
 import { getMessagesForChannel } from '../../redux/slices/messages';
 
@@ -28,7 +27,7 @@ const Layout = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(sliceActions.activateChannel({ channel: currentChannel }));
+    dispatch(actions.activateChannel({ channel: currentChannel }));
   }, [currentChannel]);
 
   useEffect(() => {
