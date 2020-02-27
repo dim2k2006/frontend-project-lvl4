@@ -2,8 +2,9 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Octicon, { Plus } from '@primer/octicons-react';
-import { getChannels, getUserName } from '../../redux/reducers';
+import { getChannels } from '../../redux/reducers';
 import { getActiveChannel } from '../../redux/slices/activeChannel';
+import { getUserName } from '../../redux/slices/userName';
 import { actions } from '../../redux/slices';
 
 const Aside = () => {
