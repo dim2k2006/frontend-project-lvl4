@@ -8,6 +8,7 @@ import messages, { actions as messagesActions } from './messages';
 import channelAddingState, { actions as channelAddingStateActions } from './channelAddingState';
 import channelRemovingState, { actions as channelRemovingStateActions } from './channelRemovingState';
 import channelEditingState, { actions as channelEditingStateActions } from './channelEditingState';
+import channels, { actions as channelsActions } from './channels';
 
 import modalState, { actions as modalStateActions } from './modalState';
 
@@ -21,6 +22,7 @@ export default combineReducers({
   channelAddingState,
   channelRemovingState,
   channelEditingState,
+  channels,
   modalState,
   activeChannel,
   userName,
@@ -33,6 +35,7 @@ const actions = {
   ...channelAddingStateActions,
   ...channelRemovingStateActions,
   ...channelEditingStateActions,
+  ...channelsActions,
   ...modalStateActions,
   ...activeChannelActions,
 };
