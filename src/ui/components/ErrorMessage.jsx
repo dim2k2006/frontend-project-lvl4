@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import flow from 'lodash/flow';
 import { connect } from 'react-redux';
 import cn from 'classnames';
-import { getErrorMessage } from '../../redux/reducers';
-import * as actions from '../../redux/actions';
+import { getErrorMessage } from '../../redux/slices/errorMessage';
+import { actions } from '../../redux/slices';
 
 const ErrorMessage = ({ message, resetErrorMessage }) => {
   if (!message) return null;
