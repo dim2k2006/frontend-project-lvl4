@@ -1,12 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import flow from 'lodash/flow';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import cn from 'classnames';
 import { getErrorMessage } from '../../redux/slices/errorMessage';
 import { actions } from '../../redux/slices';
 
-const ErrorMessage = ({ message, resetErrorMessage }) => {
+const ErrorMessage = () => {
+  const message = useSelector(getErrorMessage);
+  const dispatch = useDispatch();
+
   if (!message) return null;
 
   const componentClass = cn({
@@ -22,7 +23,7 @@ const ErrorMessage = ({ message, resetErrorMessage }) => {
         <div className={componentClass} role="alert">
           {message}
 
-          <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={resetErrorMessage}>
+          <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={() => dispatch(actions.resetErrorMessage)}>
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -31,20 +32,4 @@ const ErrorMessage = ({ message, resetErrorMessage }) => {
   );
 };
 
-ErrorMessage.propTypes = {
-  message: PropTypes.string,
-  resetErrorMessage: PropTypes.func.isRequired,
-};
-
-ErrorMessage.defaultProps = {
-  message: '',
-};
-
-export default flow(
-  connect(
-    (state) => ({
-      message: getErrorMessage(state),
-    }),
-    actions,
-  ),
-)(ErrorMessage);
+export default ErrorMessage;
