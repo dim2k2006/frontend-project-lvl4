@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Modal from './Modal';
-import { getActiveChannel } from '../../redux/reducers';
+import { getActiveChannel } from '../../redux/slices/activeChannel';
 import { getModalState } from '../../redux/slices/modalState';
 import { getChannelRemovingState } from '../../redux/slices/channelRemovingState';
 import { actions } from '../../redux/slices';
