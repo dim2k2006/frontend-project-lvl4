@@ -3,8 +3,9 @@ import get from 'lodash/get';
 import { useSelector, useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 import { actions } from '../../redux/slices';
-import { getUserName, getActiveChannel } from '../../redux/reducers';
+import { getUserName } from '../../redux/reducers';
 import { getMessageSubmittingState } from '../../redux/slices/messageSubmittingState';
+import { getActiveChannel } from '../../redux/slices/activeChannel';
 
 const MessageForm = () => {
   const userName = useSelector(getUserName);
