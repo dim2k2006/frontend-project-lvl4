@@ -1,7 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import find from 'lodash/find';
 import * as actions from '../actions';
-import { getUserName as getName } from '../../utils';
 
 const channels = createReducer([], {
   [actions.addChannelSuccess](state, action) {
@@ -28,10 +27,6 @@ const channels = createReducer([], {
   },
 });
 
-const userName = createReducer(getName(), {
-
-});
-
 const errorMessage = createReducer('', {
   [actions.submitMessageFailure](state, action) {
     return action.payload.message;
@@ -46,24 +41,9 @@ const errorMessage = createReducer('', {
 
 export const getChannels = (state) => state.channels;
 
-export const getUserName = (state) => state.userName;
-
 export const getErrorMessage = (state) => state.errorMessage;
-
-// export default combineReducers({
-// //   channels,
-// //   channelAddingState,
-// //   channelRemovingState,
-// //   channelEditingState,
-// //   messages,
-// //   userName,
-// //   activeChannel,
-// //   errorMessage,
-// //   modalState,
-// // });
 
 export default {
   channels,
-  userName,
   errorMessage,
 };

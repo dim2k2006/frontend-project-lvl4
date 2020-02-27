@@ -13,6 +13,8 @@ import modalState, { actions as modalStateActions } from './modalState';
 
 import activeChannel, { actions as activeChannelActions } from './activeChannel';
 
+import userName from './userName';
+
 export default combineReducers({
   messageSubmittingState,
   messages,
@@ -21,6 +23,7 @@ export default combineReducers({
   channelEditingState,
   modalState,
   activeChannel,
+  userName,
   ...reducers,
 });
 
