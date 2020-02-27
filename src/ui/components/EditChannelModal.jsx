@@ -4,7 +4,7 @@ import find from 'lodash/find';
 import { useSelector, useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 import Modal from './Modal';
-import { getChannels } from '../../redux/reducers';
+import { getChannels } from '../../redux/slices/channels';
 import { getModalState } from '../../redux/slices/modalState';
 import { getActiveChannel } from '../../redux/slices/activeChannel';
 import { getChannelEditingState } from '../../redux/slices/channelEditingState';
