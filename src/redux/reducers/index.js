@@ -44,15 +44,7 @@ const errorMessage = createReducer('', {
   },
 });
 
-const activeChannel = createReducer(0, {
-  [actions.activateChannel](state, action) {
-    return action.payload.channel;
-  },
-});
-
 export const getChannels = (state) => state.channels;
-
-export const getActiveChannel = (state) => state.activeChannel;
 
 export const getUserName = (state) => state.userName;
 
@@ -73,6 +65,5 @@ export const getErrorMessage = (state) => state.errorMessage;
 export default {
   channels,
   userName,
-  activeChannel,
   errorMessage,
 };
