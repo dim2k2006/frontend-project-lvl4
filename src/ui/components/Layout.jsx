@@ -21,16 +21,15 @@ import { getMessagesForChannel } from '../../redux/slices/messages';
 
 const Layout = () => {
   const match = useRouteMatch();
+  const currentChannel = toNumber(get(match, 'params.channel'));
   const activeChannel = useSelector(getActiveChannel);
   const messages = useSelector((state) => getMessagesForChannel(state, activeChannel));
   const channels = useSelector(getChannels);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const channel = toNumber(get(match, 'params.channel'));
-
-    dispatch(sliceActions.activateChannel({ channel }));
-  });
+    dispatch(sliceActions.activateChannel({ channel: currentChannel }));
+  }, [currentChannel]);
 
   useEffect(() => {
     const socket = io();
@@ -68,7 +67,7 @@ const Layout = () => {
     return () => {
       socket.close();
     };
-  }, [messages]);
+  }, [messages, channels]);
 
   return (
     <div className="container-fluid h-100">
