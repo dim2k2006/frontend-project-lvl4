@@ -3,14 +3,26 @@ import faker from 'faker';
 
 const cookieProp = 'userName';
 
-export const getUserName = () => {
+const setUserName = () => {
+  const name = faker.name.findName();
+
+  Cookies.set(cookieProp, name);
+
+  return name;
+};
+
+const getUserName = () => {
   const name = Cookies.get(cookieProp);
+
+  return name;
+};
+
+export const genUserName = () => {
+  const name = getUserName();
 
   if (name) return name;
 
-  const newName = faker.name.findName();
-
-  Cookies.set(cookieProp, newName);
+  const newName = setUserName();
 
   return newName;
 };

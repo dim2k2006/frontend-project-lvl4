@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getUserName as getName } from '../../utils';
+import { genUserName } from '../../utils';
 
 const userName = createSlice({
   name: 'userName',
-  initialState: getName(),
+  initialState: genUserName(),
   reducers: {},
 });
 
