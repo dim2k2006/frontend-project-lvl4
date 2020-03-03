@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import get from 'lodash/get';
 import routes from '../../routes';
+import { actions as channelsActions } from './channels';
 import { actions as modalStateActions } from './modalState';
 
 const channelAddingState = createSlice({
@@ -37,7 +38,9 @@ export const createChannel = (data, resetFn) => (dispatch) => {
     .then((response) => {
       const channel = get(response, 'data.data.attributes');
 
-      dispatch(addChannelSuccess({ channel }));
+      dispatch(addChannelSuccess());
+
+      dispatch(channelsActions.addChannel({ channel }));
 
       resetFn();
 

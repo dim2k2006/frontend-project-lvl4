@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import find from 'lodash/find';
-import { actions as channelAddingStateActions } from './channelAddingState';
 import { actions as channelRemovingStateActions } from './channelRemovingState';
 import { actions as channelEditingStateActions } from './channelEditingState';
 
@@ -8,6 +7,9 @@ const channels = createSlice({
   name: 'channels',
   initialState: [],
   reducers: {
+    addChannel(state, action) {
+      state.push(action.payload.channel);
+    },
     receiveChannel(state, action) {
       state.push(action.payload.channel);
     },
@@ -21,9 +23,6 @@ const channels = createSlice({
     },
   },
   extraReducers: {
-    [channelAddingStateActions.addChannelSuccess](state, action) {
-      state.push(action.payload.channel);
-    },
     [channelRemovingStateActions.removeChannelSuccess](state, action) {
       return state.filter((channel) => channel.id !== action.payload.id);
     },
