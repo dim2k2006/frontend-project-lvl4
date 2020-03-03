@@ -1,5 +1,6 @@
 import React from 'react';
 import get from 'lodash/get';
+import curry from 'lodash/curry';
 import { useSelector, useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 import { actions } from '../../redux/slices';
@@ -25,6 +26,15 @@ const MessageForm = () => {
 
     dispatch(actions.submitMessage(activeChannel, data, resetForm));
   };
+  const onKeyDown = curry((props, event) => {
+    const message = get(props, 'values.message', '');
+
+    if (!message.length || event.keyCode !== 13) return;
+
+    event.preventDefault();
+
+    props.handleSubmit();
+  });
 
   return (
     <Formik
@@ -34,15 +44,7 @@ const MessageForm = () => {
       {(props) => (
         <div
           role="presentation"
-          onKeyDown={(event) => {
-            const message = get(props, 'values.message', '');
-
-            if (!message.length || event.keyCode !== 13) return;
-
-            event.preventDefault();
-
-            props.handleSubmit();
-          }}
+          onKeyDown={onKeyDown(props)}
         >
           <form
             onSubmit={props.handleSubmit}
