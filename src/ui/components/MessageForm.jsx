@@ -61,17 +61,13 @@ const MessageForm = () => {
             />
 
             {submittingState === 'requested' && (
-              <div
-                className="spinner-border text-info position-absolute"
-                role="status"
-                style={{
-                  top: '50%',
-                  left: '50%',
-                  marginTop: '-16px',
-                  marginLeft: '-16px',
-                }}
-              >
-                <span className="sr-only">Loading...</span>
+              <div className="fixed-top position-absolute w-100 h-100 d-flex align-items-center justify-content-center">
+                <div
+                  className="spinner-border text-info"
+                  role="status"
+                >
+                  <span className="sr-only">Loading...</span>
+                </div>
               </div>
             )}
           </form>
