@@ -1,21 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import get from 'lodash/get';
 import find from 'lodash/find';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import Modal from './Modal';
 import { getChannels } from '../../redux/slices/channels';
 import { getActiveChannel } from '../../redux/slices/activeChannel';
 import { getChannelEditingState } from '../../redux/slices/channelEditingState';
-import { actions } from '../../redux/slices';
+import connect from '../../connect';
 
-const EditChannelModal = () => {
+const EditChannelModal = ({ updateChannel }) => {
   const channelEditingState = useSelector(getChannelEditingState);
   const activeChannel = useSelector(getActiveChannel);
   const channels = useSelector(getChannels);
   const activeChannelData = find(channels, (channel) => channel.id === activeChannel);
   const channelName = get(activeChannelData, 'name');
-  const dispatch = useDispatch();
   const onSubmit = (values, { resetForm }) => {
     const name = get(values, 'name');
     const data = {
@@ -26,7 +26,7 @@ const EditChannelModal = () => {
       },
     };
 
-    dispatch(actions.updateChannel(activeChannel, data, resetForm));
+    updateChannel(activeChannel, data, resetForm);
   };
 
   return (
@@ -67,4 +67,8 @@ const EditChannelModal = () => {
   );
 };
 
-export default EditChannelModal;
+EditChannelModal.propTypes = {
+  updateChannel: PropTypes.func.isRequired,
+};
+
+export default connect()(EditChannelModal);
