@@ -1,18 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import get from 'lodash/get';
 import curry from 'lodash/curry';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Formik } from 'formik';
-import { actions } from '../../redux/slices';
 import { getUserName } from '../../redux/slices/userName';
 import { getMessageSubmittingState } from '../../redux/slices/messageSubmittingState';
 import { getActiveChannel } from '../../redux/slices/activeChannel';
+import connect from '../../connect';
 
-const MessageForm = () => {
+const MessageForm = ({ submitMessage }) => {
   const userName = useSelector(getUserName);
   const activeChannel = useSelector(getActiveChannel);
   const submittingState = useSelector(getMessageSubmittingState);
-  const dispatch = useDispatch();
   const onSubmit = (values, { resetForm }) => {
     const text = get(values, 'message');
     const data = {
@@ -24,7 +24,7 @@ const MessageForm = () => {
       },
     };
 
-    dispatch(actions.submitMessage(activeChannel, data, resetForm));
+    submitMessage(activeChannel, data, resetForm);
   };
   const onKeyDown = curry((props, event) => {
     const message = get(props, 'values.message', '');
@@ -77,4 +77,8 @@ const MessageForm = () => {
   );
 };
 
-export default MessageForm;
+MessageForm.propTypes = {
+  submitMessage: PropTypes.func.isRequired,
+};
+
+export default connect()(MessageForm);
