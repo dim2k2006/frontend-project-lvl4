@@ -64,19 +64,19 @@ const Layout = () => {
 
       if (isChannelExist) return;
 
-      dispatch(actions.receiveChannel({ channel }));
+      dispatch(actions.addChannel({ channel }));
     });
 
     socket.on('removeChannel', (data) => {
       const id = get(data, 'data.id');
 
-      dispatch(actions.receiveRemovedChannel({ id }));
+      dispatch(actions.removeChannel({ id }));
     });
 
     socket.on('renameChannel', (data) => {
       const channel = get(data, 'data.attributes');
 
-      dispatch(actions.receiveEditedChannel({ channel }));
+      dispatch(actions.editChannel({ channel }));
     });
 
     return () => {

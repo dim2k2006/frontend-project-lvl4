@@ -16,19 +16,6 @@ const channels = createSlice({
 
       channel.name = action.payload.channel.name;
     },
-
-
-    receiveChannel(state, action) {
-      state.push(action.payload.channel);
-    },
-    receiveRemovedChannel(state, action) {
-      return state.filter((channel) => channel.id !== action.payload.id);
-    },
-    receiveEditedChannel(state, action) {
-      const channel = find(state, (ch) => ch.id === action.payload.channel.id);
-
-      channel.name = action.payload.channel.name;
-    },
   },
 });
 
