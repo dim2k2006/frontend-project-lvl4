@@ -1,18 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import get from 'lodash/get';
 import find from 'lodash/find';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getChannels } from '../../redux/slices/channels';
 import { getActiveChannel } from '../../redux/slices/activeChannel';
-import { actions } from '../../redux/slices';
+import connect from '../../connect';
 
-const Nav = () => {
+const Nav = ({ showModal }) => {
   const channels = useSelector(getChannels);
   const activeChannel = useSelector(getActiveChannel);
   const channel = find(channels, (ch) => ch.id === activeChannel);
   const channelName = get(channel, 'name', '');
   const removable = get(channel, 'removable', false);
-  const dispatch = useDispatch();
 
   return (
     <nav className="navbar navbar-light bg-light border-bottom w-100 d-flex justify-content-between">
@@ -22,7 +22,7 @@ const Nav = () => {
         <button
           type="button"
           className="btn btn-secondary btn-sm"
-          onClick={() => dispatch(actions.showModal({ type: 'editing' }))}
+          onClick={() => showModal({ type: 'editing' })}
         >
           Edit
         </button>
@@ -31,7 +31,7 @@ const Nav = () => {
           <button
             type="button"
             className="btn btn-danger btn-sm ml-2"
-            onClick={() => dispatch(actions.showModal({ type: 'removing' }))}
+            onClick={() => showModal({ type: 'removing' })}
           >
             Remove
           </button>
@@ -41,4 +41,8 @@ const Nav = () => {
   );
 };
 
-export default Nav;
+Nav.propTypes = {
+  showModal: PropTypes.func.isRequired,
+};
+
+export default connect()(Nav);
