@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useRouteMatch } from 'react-router-dom';
 import get from 'lodash/get';
 import find from 'lodash/find';
 import toNumber from 'lodash/toNumber';
 import io from 'socket.io-client/dist/socket.io.js';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Aside from './Aside';
 import Nav from './Nav';
 import Messages from './Messages';
@@ -13,11 +14,11 @@ import ErrorMessage from './ErrorMessage';
 import AddChannelModal from './AddChannelModal';
 import EditChannelModal from './EditChannelModal';
 import RemoveChannelModal from './RemoveChannelModal';
-import { actions } from '../../redux/slices';
 import { getChannels } from '../../redux/slices/channels';
 import { getModalState } from '../../redux/slices/modalState';
 import { getActiveChannel } from '../../redux/slices/activeChannel';
 import { getMessagesForChannel } from '../../redux/slices/messages';
+import connect from '../../connect';
 
 const modalsMap = {
   adding: AddChannelModal,
@@ -33,17 +34,22 @@ const renderModal = (type) => {
   return <Component />;
 };
 
-const Layout = () => {
+const Layout = ({
+  activateChannel,
+  addMessage,
+  addChannel,
+  removeChannel,
+  editChannel,
+}) => {
   const match = useRouteMatch();
   const currentChannel = toNumber(get(match, 'params.channel'));
   const activeChannel = useSelector(getActiveChannel);
   const messages = useSelector((state) => getMessagesForChannel(state, activeChannel));
   const channels = useSelector(getChannels);
   const modalState = useSelector(getModalState);
-  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(actions.activateChannel({ channel: currentChannel }));
+    activateChannel({ channel: currentChannel });
   }, [currentChannel]);
 
   useEffect(() => {
@@ -55,7 +61,7 @@ const Layout = () => {
 
       if (isMessageExist) return;
 
-      dispatch(actions.addMessage({ message }));
+      addMessage({ message });
     });
 
     socket.on('newChannel', (data) => {
@@ -64,19 +70,19 @@ const Layout = () => {
 
       if (isChannelExist) return;
 
-      dispatch(actions.addChannel({ channel }));
+      addChannel({ channel });
     });
 
     socket.on('removeChannel', (data) => {
       const id = get(data, 'data.id');
 
-      dispatch(actions.removeChannel({ id }));
+      removeChannel({ id });
     });
 
     socket.on('renameChannel', (data) => {
       const channel = get(data, 'data.attributes');
 
-      dispatch(actions.editChannel({ channel }));
+      editChannel({ channel });
     });
 
     return () => {
@@ -109,4 +115,12 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+Layout.propTypes = {
+  activateChannel: PropTypes.func.isRequired,
+  addMessage: PropTypes.func.isRequired,
+  addChannel: PropTypes.func.isRequired,
+  removeChannel: PropTypes.func.isRequired,
+  editChannel: PropTypes.func.isRequired,
+};
+
+export default connect()(Layout);
