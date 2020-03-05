@@ -1,14 +1,14 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import Modal from './Modal';
 import { getActiveChannel } from '../../redux/slices/activeChannel';
 import { getChannelRemovingState } from '../../redux/slices/channelRemovingState';
-import { actions } from '../../redux/slices';
+import connect from '../../connect';
 
-const RemoveChannelModal = () => {
+const RemoveChannelModal = ({ hideModal, deleteChannel }) => {
   const channelRemovingState = useSelector(getChannelRemovingState);
   const activeChannel = useSelector(getActiveChannel);
-  const dispatch = useDispatch();
 
   return (
     <Modal title="Remove channel">
@@ -16,7 +16,7 @@ const RemoveChannelModal = () => {
         <button
           className="btn btn-secondary"
           type="button"
-          onClick={() => dispatch(actions.hideModal())}
+          onClick={hideModal}
         >
           Dismiss
         </button>
@@ -24,7 +24,7 @@ const RemoveChannelModal = () => {
         <button
           className="btn btn-secondary"
           type="button"
-          onClick={() => dispatch(actions.deleteChannel(activeChannel))}
+          onClick={() => deleteChannel(activeChannel)}
           disabled={channelRemovingState === 'requested'}
         >
           {channelRemovingState === 'requested' && (
@@ -38,4 +38,9 @@ const RemoveChannelModal = () => {
   );
 };
 
-export default RemoveChannelModal;
+RemoveChannelModal.propTypes = {
+  hideModal: PropTypes.func.isRequired,
+  deleteChannel: PropTypes.func.isRequired,
+};
+
+export default connect()(RemoveChannelModal);
