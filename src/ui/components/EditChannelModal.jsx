@@ -5,13 +5,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 import Modal from './Modal';
 import { getChannels } from '../../redux/slices/channels';
-import { getModalState } from '../../redux/slices/modalState';
 import { getActiveChannel } from '../../redux/slices/activeChannel';
 import { getChannelEditingState } from '../../redux/slices/channelEditingState';
 import { actions } from '../../redux/slices';
 
 const EditChannelModal = () => {
-  const modalState = useSelector(getModalState);
   const channelEditingState = useSelector(getChannelEditingState);
   const activeChannel = useSelector(getActiveChannel);
   const channels = useSelector(getChannels);
@@ -30,8 +28,6 @@ const EditChannelModal = () => {
 
     dispatch(actions.updateChannel(activeChannel, data, resetForm));
   };
-
-  if (modalState !== 'editingChannel') return null;
 
   return (
     <Modal title="Edit channel">
