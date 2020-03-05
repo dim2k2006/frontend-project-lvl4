@@ -34,7 +34,7 @@ export const deleteChannel = (id) => (dispatch) => {
     url: `${routes.channelsPath()}/${id}`,
   })
     .then(() => {
-      dispatch(removeChannelSuccess({ id }));
+      dispatch(removeChannelSuccess());
 
       dispatch(channelsActions.removeChannel({ id }));
 

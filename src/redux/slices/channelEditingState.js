@@ -3,6 +3,7 @@ import axios from 'axios';
 import get from 'lodash/get';
 import routes from '../../routes';
 import { actions as modalStateActions } from './modalState';
+import { actions as channelsActions } from './channels';
 
 const channelEditingState = createSlice({
   name: 'channelEditingState',
@@ -37,11 +38,13 @@ export const updateChannel = (channelId, data, resetFn) => (dispatch) => {
     .then((response) => {
       const channel = get(response, 'data.data.attributes');
 
-      dispatch(editChannelSuccess({ channel }));
+      dispatch(editChannelSuccess());
+
+      dispatch(channelsActions.editChannel({ channel }));
 
       resetFn();
 
-      dispatch(modalStateActions.resetModal());
+      dispatch(modalStateActions.hideModal());
     })
     .catch(() => {
       dispatch(editChannelFailure({ message: 'Something went wrong during editing the channel. Please try again.' }));
