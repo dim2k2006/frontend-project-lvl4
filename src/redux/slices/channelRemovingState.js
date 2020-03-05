@@ -3,6 +3,7 @@ import axios from 'axios';
 import routes from '../../routes';
 import { actions as modalStateActions } from './modalState';
 import { actions as channelsActions } from './channels';
+import { actions as errorMessageActions } from './errorMessage';
 
 const channelRemovingState = createSlice({
   name: 'channelRemovingState',
@@ -41,7 +42,11 @@ export const deleteChannel = (id) => (dispatch) => {
       dispatch(modalStateActions.hideModal());
     })
     .catch(() => {
-      dispatch(removeChannelFailure({ message: 'Something went wrong during removing the channel. Please try again.' }));
+      dispatch(removeChannelFailure());
+
+      dispatch(errorMessageActions.showError({
+        message: 'Something went wrong during removing the channel. Please try again.',
+      }));
     });
 };
 
