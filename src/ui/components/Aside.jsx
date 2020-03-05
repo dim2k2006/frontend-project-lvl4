@@ -28,7 +28,7 @@ const Aside = () => {
           type="button"
           className="position-absolute btn btn-link text-white p-0 pl-1 pr-1"
           style={{ right: '0', top: '50%', transform: 'translateY(-50%)' }}
-          onClick={() => dispatch(actions.showModal('adding'))}
+          onClick={() => dispatch(actions.showModal({ type: 'adding' }))}
         >
           <Octicon icon={Plus} />
         </button>

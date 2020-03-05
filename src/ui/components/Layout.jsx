@@ -15,8 +15,23 @@ import EditChannelModal from './EditChannelModal';
 import RemoveChannelModal from './RemoveChannelModal';
 import { actions } from '../../redux/slices';
 import { getChannels } from '../../redux/slices/channels';
+import { getModalState } from '../../redux/slices/modalState';
 import { getActiveChannel } from '../../redux/slices/activeChannel';
 import { getMessagesForChannel } from '../../redux/slices/messages';
+
+const modalsMap = {
+  adding: AddChannelModal,
+  editing: EditChannelModal,
+  removing: RemoveChannelModal,
+};
+
+const renderModal = (type) => {
+  const Component = get(modalsMap, type);
+
+  if (!Component) return null;
+
+  return <Component />;
+};
 
 const Layout = () => {
   const match = useRouteMatch();
@@ -24,6 +39,7 @@ const Layout = () => {
   const activeChannel = useSelector(getActiveChannel);
   const messages = useSelector((state) => getMessagesForChannel(state, activeChannel));
   const channels = useSelector(getChannels);
+  const modalState = useSelector(getModalState);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -86,11 +102,7 @@ const Layout = () => {
         </div>
       </div>
 
-      <AddChannelModal />
-
-      <RemoveChannelModal />
-
-      <EditChannelModal />
+      {renderModal(modalState)}
 
       <ErrorMessage />
     </div>

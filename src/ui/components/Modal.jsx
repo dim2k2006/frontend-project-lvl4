@@ -23,7 +23,7 @@ const Modal = ({ title, children }) => {
                 className="close"
                 data-dismiss="modal"
                 aria-label="Close"
-                onClick={() => dispatch(actions.resetModal())}
+                onClick={() => dispatch(actions.hideModal())}
               >
                 <span aria-hidden="true">&times;</span>
               </button>

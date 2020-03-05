@@ -22,7 +22,7 @@ const Nav = () => {
         <button
           type="button"
           className="btn btn-secondary btn-sm"
-          onClick={() => dispatch(actions.showModal('editing'))}
+          onClick={() => dispatch(actions.showModal({ type: 'editing' }))}
         >
           Edit
         </button>
@@ -31,7 +31,7 @@ const Nav = () => {
           <button
             type="button"
             className="btn btn-danger btn-sm ml-2"
-            onClick={() => dispatch(actions.showModal('removing'))}
+            onClick={() => dispatch(actions.showModal({ type: 'removing' }))}
           >
             Remove
           </button>
