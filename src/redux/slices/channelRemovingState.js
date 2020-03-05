@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import routes from '../../routes';
 import { actions as modalStateActions } from './modalState';
+import { actions as channelsActions } from './channels';
 
 const channelRemovingState = createSlice({
   name: 'channelRemovingState',
@@ -35,7 +36,9 @@ export const deleteChannel = (id) => (dispatch) => {
     .then(() => {
       dispatch(removeChannelSuccess({ id }));
 
-      dispatch(modalStateActions.resetModal());
+      dispatch(channelsActions.removeChannel({ id }));
+
+      dispatch(modalStateActions.hideModal());
     })
     .catch(() => {
       dispatch(removeChannelFailure({ message: 'Something went wrong during removing the channel. Please try again.' }));
