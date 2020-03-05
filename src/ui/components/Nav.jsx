@@ -31,7 +31,7 @@ const Nav = () => {
           <button
             type="button"
             className="btn btn-danger btn-sm ml-2"
-            onClick={() => dispatch(actions.removeChannel())}
+            onClick={() => dispatch(actions.showModal('removing'))}
           >
             Remove
           </button>
