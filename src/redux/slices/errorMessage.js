@@ -1,20 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { actions as messageSubmittingStateActions } from './messageSubmittingState';
-import { actions as channelAddingStateActions } from './channelAddingState';
 
 const errorMessage = createSlice({
   name: 'errorMessage',
   initialState: '',
   reducers: {
-    resetErrorMessage() {
+    showError(state, action) {
+      return action.payload.message;
+    },
+    hideError() {
       return '';
     },
   },
   extraReducers: {
     [messageSubmittingStateActions.submitMessageFailure](state, action) {
-      return action.payload.message;
-    },
-    [channelAddingStateActions.addChannelFailure](state, action) {
       return action.payload.message;
     },
   },

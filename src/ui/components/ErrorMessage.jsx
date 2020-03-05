@@ -23,7 +23,7 @@ const ErrorMessage = () => {
         <div className={componentClass} role="alert">
           {message}
 
-          <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={() => dispatch(actions.resetErrorMessage())}>
+          <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={() => dispatch(actions.hideError())}>
             <span aria-hidden="true">&times;</span>
           </button>
         </div>

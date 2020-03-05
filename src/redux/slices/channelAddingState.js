@@ -4,6 +4,7 @@ import get from 'lodash/get';
 import routes from '../../routes';
 import { actions as channelsActions } from './channels';
 import { actions as modalStateActions } from './modalState';
+import { actions as errorMessageActions } from './errorMessage';
 
 const channelAddingState = createSlice({
   name: 'channelAddingState',
@@ -47,7 +48,11 @@ export const createChannel = (data, resetFn) => (dispatch) => {
       dispatch(modalStateActions.hideModal());
     })
     .catch(() => {
-      dispatch(addChannelFailure({ message: 'Something went wrong during creating the channel. Please try again.' }));
+      dispatch(addChannelFailure());
+
+      dispatch(errorMessageActions.showError({
+        message: 'Something went wrong during creating the channel. Please try again.',
+      }));
     });
 };
 
