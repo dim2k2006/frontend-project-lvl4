@@ -44,7 +44,7 @@ export const createChannel = (data, resetFn) => (dispatch) => {
 
       resetFn();
 
-      dispatch(modalStateActions.resetModal());
+      dispatch(modalStateActions.hideModal());
     })
     .catch(() => {
       dispatch(addChannelFailure({ message: 'Something went wrong during creating the channel. Please try again.' }));
