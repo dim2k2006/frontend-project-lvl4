@@ -1,17 +1,17 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Octicon, { Plus } from '@primer/octicons-react';
 import { getChannels } from '../../redux/slices/channels';
 import { getActiveChannel } from '../../redux/slices/activeChannel';
 import { getUserName } from '../../redux/slices/userName';
-import { actions } from '../../redux/slices';
+import connect from '../../connect';
 
-const Aside = () => {
+const Aside = ({ showModal }) => {
   const channels = useSelector(getChannels);
   const activeChannel = useSelector(getActiveChannel);
   const userName = useSelector(getUserName);
-  const dispatch = useDispatch();
 
   return (
     <div className="pt-4">
@@ -28,7 +28,7 @@ const Aside = () => {
           type="button"
           className="position-absolute btn btn-link text-white p-0 pl-1 pr-1"
           style={{ right: '0', top: '50%', transform: 'translateY(-50%)' }}
-          onClick={() => dispatch(actions.showModal({ type: 'adding' }))}
+          onClick={() => showModal({ type: 'adding' })}
         >
           <Octicon icon={Plus} />
         </button>
@@ -58,4 +58,8 @@ const Aside = () => {
   );
 };
 
-export default Aside;
+Aside.propTypes = {
+  showModal: PropTypes.func.isRequired,
+};
+
+export default connect()(Aside);
