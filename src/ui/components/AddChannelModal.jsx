@@ -1,14 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import get from 'lodash/get';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import Modal from './Modal';
 import { getChannelAddingState } from '../../redux/slices/channelAddingState';
-import { actions } from '../../redux/slices';
+import connect from '../../connect';
 
-const AddChannelModal = () => {
+const AddChannelModal = ({ createChannel }) => {
   const channelAddingState = useSelector(getChannelAddingState);
-  const dispatch = useDispatch();
   const onSubmit = (values, { resetForm }) => {
     const name = get(values, 'name');
     const data = {
@@ -19,7 +19,7 @@ const AddChannelModal = () => {
       },
     };
 
-    dispatch(actions.createChannel(data, resetForm));
+    createChannel(data, resetForm);
   };
 
   return (
@@ -60,4 +60,8 @@ const AddChannelModal = () => {
   );
 };
 
-export default AddChannelModal;
+AddChannelModal.propTypes = {
+  createChannel: PropTypes.func.isRequired,
+};
+
+export default connect()(AddChannelModal);
