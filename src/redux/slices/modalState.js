@@ -4,16 +4,10 @@ const modalState = createSlice({
   name: 'modalState',
   initialState: 'none',
   reducers: {
-    addChannel() {
-      return 'addingChannel';
+    showModal(state, action) {
+      return action.payload.type;
     },
-    removeChannel() {
-      return 'removingChannel';
-    },
-    editChannel() {
-      return 'editingChannel';
-    },
-    resetModal() {
+    hideModal() {
       return 'none';
     },
   },
