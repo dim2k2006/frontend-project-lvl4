@@ -21,13 +21,12 @@ const Aside = ({ showModal }) => {
         <small className="text-white">{userName}</small>
       </div>
 
-      <h5 className="text-white position-relative">
+      <h5 className="text-white position-relative w-100 d-flex justify-content-between">
         Channels
 
         <button
           type="button"
-          className="position-absolute btn btn-link text-white p-0 pl-1 pr-1"
-          style={{ right: '0', top: '50%', transform: 'translateY(-50%)' }}
+          className="position-relative btn btn-link text-white p-0 pl-1 pr-1"
           onClick={() => showModal({ type: 'adding' })}
         >
           <Octicon icon={Plus} />
