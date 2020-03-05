@@ -4,11 +4,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 import Modal from './Modal';
 import { getChannelAddingState } from '../../redux/slices/channelAddingState';
-import { getModalState } from '../../redux/slices/modalState';
 import { actions } from '../../redux/slices';
 
 const AddChannelModal = () => {
-  const modalState = useSelector(getModalState);
   const channelAddingState = useSelector(getChannelAddingState);
   const dispatch = useDispatch();
   const onSubmit = (values, { resetForm }) => {
@@ -23,8 +21,6 @@ const AddChannelModal = () => {
 
     dispatch(actions.createChannel(data, resetForm));
   };
-
-  if (modalState !== 'addingChannel') return null;
 
   return (
     <Modal title="Add channel">
