@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { actions as messageSubmittingStateActions } from './messageSubmittingState';
 
 const errorMessage = createSlice({
   name: 'errorMessage',
@@ -10,11 +9,6 @@ const errorMessage = createSlice({
     },
     hideError() {
       return '';
-    },
-  },
-  extraReducers: {
-    [messageSubmittingStateActions.submitMessageFailure](state, action) {
-      return action.payload.message;
     },
   },
 });

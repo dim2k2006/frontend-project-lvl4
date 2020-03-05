@@ -3,6 +3,7 @@ import axios from 'axios';
 import get from 'lodash/get';
 import routes from '../../routes';
 import { actions as messagesActions } from './messages';
+import { actions as errorMessageActions } from './errorMessage';
 
 const messageSubmittingState = createSlice({
   name: 'messageSubmittingState',
@@ -44,7 +45,11 @@ const submitMessage = (channelId, data, resetFn) => (dispatch) => {
       resetFn();
     })
     .catch(() => {
-      dispatch(submitMessageFailure({ message: 'Something went wrong during sending the message. Please try again.' }));
+      dispatch(submitMessageFailure());
+
+      dispatch(errorMessageActions.showError({
+        message: 'Something went wrong during sending the message. Please try again.',
+      }));
     });
 };
 
