@@ -22,7 +22,7 @@ const Nav = () => {
         <button
           type="button"
           className="btn btn-secondary btn-sm"
-          onClick={() => dispatch(actions.editChannel())}
+          onClick={() => dispatch(actions.showModal('editing'))}
         >
           Edit
         </button>
