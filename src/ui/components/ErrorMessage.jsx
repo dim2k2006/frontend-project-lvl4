@@ -1,12 +1,12 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import cn from 'classnames';
 import { getErrorMessage } from '../../redux/slices/errorMessage';
-import { actions } from '../../redux/slices';
+import connect from '../../connect';
 
-const ErrorMessage = () => {
+const ErrorMessage = ({ hideError }) => {
   const message = useSelector(getErrorMessage);
-  const dispatch = useDispatch();
 
   if (!message) return null;
 
@@ -23,7 +23,7 @@ const ErrorMessage = () => {
         <div className={componentClass} role="alert">
           {message}
 
-          <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={() => dispatch(actions.hideError())}>
+          <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={hideError}>
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -32,4 +32,8 @@ const ErrorMessage = () => {
   );
 };
 
-export default ErrorMessage;
+ErrorMessage.propTypes = {
+  hideError: PropTypes.func.isRequired,
+};
+
+export default connect()(ErrorMessage);
