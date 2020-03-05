@@ -16,7 +16,7 @@ const RemoveChannelModal = () => {
         <button
           className="btn btn-secondary"
           type="button"
-          onClick={() => dispatch(actions.resetModal())}
+          onClick={() => dispatch(actions.hideModal())}
         >
           Dismiss
         </button>
