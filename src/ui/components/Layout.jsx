@@ -55,7 +55,7 @@ const Layout = () => {
 
       if (isMessageExist) return;
 
-      dispatch(actions.receiveMessage({ message }));
+      dispatch(actions.addMessage({ message }));
     });
 
     socket.on('newChannel', (data) => {

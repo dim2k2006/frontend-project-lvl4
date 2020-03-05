@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import get from 'lodash/get';
 import routes from '../../routes';
+import { actions as messagesActions } from './messages';
 
 const messageSubmittingState = createSlice({
   name: 'messageSubmittingState',
@@ -36,7 +37,9 @@ const submitMessage = (channelId, data, resetFn) => (dispatch) => {
     .then((response) => {
       const message = get(response, 'data.data.attributes');
 
-      dispatch(submitMessageSuccess({ message }));
+      dispatch(submitMessageSuccess());
+
+      dispatch(messagesActions.addMessage({ message }));
 
       resetFn();
     })
