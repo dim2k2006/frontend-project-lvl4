@@ -2,60 +2,56 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import get from 'lodash/get';
 import { useSelector } from 'react-redux';
-import { Formik } from 'formik';
+import { useFormik } from 'formik';
 import Modal from './Modal';
 import { getChannelAddingState } from '../../redux/slices/channelAddingState';
 import connect from '../../connect';
 
 const AddChannelModal = ({ createChannel }) => {
   const channelAddingState = useSelector(getChannelAddingState);
-  const onSubmit = (values, { resetForm }) => {
-    const name = get(values, 'name');
-    const data = {
-      data: {
-        attributes: {
-          name,
+  const formik = useFormik({
+    initialValues: { name: '' },
+    onSubmit: (values, { resetForm }) => {
+      const name = get(values, 'name');
+      const data = {
+        data: {
+          attributes: {
+            name,
+          },
         },
-      },
-    };
+      };
 
-    createChannel(data, resetForm);
-  };
+      createChannel(data, resetForm);
+    },
+  });
 
   return (
     <Modal title="Add channel">
-      <Formik
-        initialValues={{ name: '' }}
-        onSubmit={onSubmit}
+      <form
+        onSubmit={formik.handleSubmit}
+        className="w-100 p-3 position-relative"
       >
-        {(props) => (
-          <form
-            onSubmit={props.handleSubmit}
-            className="w-100 p-3 position-relative"
-          >
-            <div className="form-group">
-              <input
-                type="text"
-                name="name"
-                className="form-control w-100"
-                placeholder="Enter Channel name"
-                value={props.values.name}
-                onChange={props.handleChange}
-                onBlur={props.handleBlur}
-                disabled={channelAddingState === 'requested'}
-              />
-            </div>
+        <div className="form-group">
+          <input
+            type="text"
+            name="name"
+            className="form-control w-100"
+            placeholder="Enter Channel name"
+            value={formik.values.name}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            disabled={channelAddingState === 'requested'}
+          />
+        </div>
 
-            <button className="btn btn-primary" type="submit" disabled={channelAddingState === 'requested'}>
-              {channelAddingState === 'requested' && (
-                <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true" />
-              )}
+        <button className="btn btn-primary" type="submit" disabled={channelAddingState === 'requested'}>
+          {channelAddingState === 'requested' && (
+            <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true" />
+          )}
 
-              Create channel
-            </button>
-          </form>
-        )}
-      </Formik>
+          Create channel
+        </button>
+      </form>
     </Modal>
   );
 };
