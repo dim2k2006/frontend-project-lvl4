@@ -2,13 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import Modal from './Modal';
-import { getActiveChannel } from '../../redux/slices/activeChannel';
-import { getChannelRemovingState } from '../../redux/slices/channelRemovingState';
+import { getSelector } from '../../redux/slices';
 import connect from '../../connect';
 
 const RemoveChannelModal = ({ hideModal, deleteChannel }) => {
-  const channelRemovingState = useSelector(getChannelRemovingState);
-  const activeChannel = useSelector(getActiveChannel);
+  const channelRemovingState = useSelector(getSelector('channelRemovingState'));
+  const activeChannel = useSelector(getSelector('activeChannel'));
 
   return (
     <Modal title="Remove channel">
