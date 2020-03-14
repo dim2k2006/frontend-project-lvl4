@@ -4,11 +4,11 @@ import get from 'lodash/get';
 import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import Modal from './Modal';
-import { getChannelAddingState } from '../../redux/slices/channelAddingState';
+import { getSelector } from '../../redux/slices';
 import connect from '../../connect';
 
 const AddChannelModal = ({ createChannel }) => {
-  const channelAddingState = useSelector(getChannelAddingState);
+  const channelAddingState = useSelector(getSelector('channelAddingState'));
   const formik = useFormik({
     initialValues: { name: '' },
     onSubmit: (values, { resetForm }) => {
