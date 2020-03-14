@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import routes from '../../routes';
+import i18n from '../../i18n';
 import { actions as modalStateActions } from './modalState';
 import { actions as channelsActions } from './channels';
 import { actions as errorMessageActions } from './errorMessage';
@@ -41,9 +42,7 @@ export const deleteChannel = (id) => async (dispatch) => {
   } catch (e) {
     dispatch(removeChannelFailure());
 
-    dispatch(errorMessageActions.showError({
-      message: 'Something went wrong during removing the channel. Please try again.',
-    }));
+    dispatch(errorMessageActions.showError({ message: i18n.t('REMOVE_CHANNEL') }));
   }
 };
 

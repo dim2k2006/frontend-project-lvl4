@@ -7,7 +7,7 @@ i18next.init({
       translation: {
         ADD_CHANNEL: 'Something went wrong during creating the channel. Please try again.',
         EDIT_CHANNEL: 'Something went wrong during editing the channel. Please try again.',
-
+        REMOVE_CHANNEL: 'Something went wrong during removing the channel. Please try again.',
       },
     },
   },
