@@ -49,30 +49,6 @@ export const createChannel = (data, resetFn) => async (dispatch) => {
       message: 'Something went wrong during creating the channel. Please try again.',
     }));
   }
-
-  // return axios({
-  //   method: 'POST',
-  //   url: routes.channelsPath(),
-  //   data,
-  // })
-  //   .then((response) => {
-  //     const channel = get(response, 'data.data.attributes');
-  //
-  //     dispatch(addChannelSuccess());
-  //
-  //     dispatch(channelsActions.addChannel({ channel }));
-  //
-  //     resetFn();
-  //
-  //     dispatch(modalStateActions.hideModal());
-  //   })
-  //   .catch(() => {
-  //     dispatch(addChannelFailure());
-  //
-  //     dispatch(errorMessageActions.showError({
-  //       message: 'Something went wrong during creating the channel. Please try again.',
-  //     }));
-  //   });
 };
 
 const actions = { ...channelAddingState.actions, createChannel };
