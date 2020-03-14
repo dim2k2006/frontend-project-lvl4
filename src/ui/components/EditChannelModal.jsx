@@ -5,15 +5,13 @@ import find from 'lodash/find';
 import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import Modal from './Modal';
-import { getChannels } from '../../redux/slices/channels';
-import { getActiveChannel } from '../../redux/slices/activeChannel';
-import { getChannelEditingState } from '../../redux/slices/channelEditingState';
+import { getSelector } from '../../redux/slices';
 import connect from '../../connect';
 
 const EditChannelModal = ({ updateChannel }) => {
-  const channelEditingState = useSelector(getChannelEditingState);
-  const activeChannel = useSelector(getActiveChannel);
-  const channels = useSelector(getChannels);
+  const channelEditingState = useSelector(getSelector('channelEditingState'));
+  const activeChannel = useSelector(getSelector('activeChannel'));
+  const channels = useSelector(getSelector('channels'));
   const activeChannelData = find(channels, (channel) => channel.id === activeChannel);
   const channelName = get(activeChannelData, 'name');
   const formik = useFormik({
