@@ -28,32 +28,51 @@ const {
   addChannelFailure,
 } = channelAddingState.actions;
 
-export const createChannel = (data, resetFn) => (dispatch) => {
+export const createChannel = (data, resetFn) => async (dispatch) => {
   dispatch(addChannelRequest());
 
-  return axios({
-    method: 'POST',
-    url: routes.channelsPath(),
-    data,
-  })
-    .then((response) => {
-      const channel = get(response, 'data.data.attributes');
+  try {
+    const response = await axios.post(routes.channelsPath(), data);
+    const channel = get(response, 'data.data.attributes');
 
-      dispatch(addChannelSuccess());
+    dispatch(addChannelSuccess());
 
-      dispatch(channelsActions.addChannel({ channel }));
+    dispatch(channelsActions.addChannel({ channel }));
 
-      resetFn();
+    resetFn();
 
-      dispatch(modalStateActions.hideModal());
-    })
-    .catch(() => {
-      dispatch(addChannelFailure());
+    dispatch(modalStateActions.hideModal());
+  } catch (e) {
+    dispatch(addChannelFailure());
 
-      dispatch(errorMessageActions.showError({
-        message: 'Something went wrong during creating the channel. Please try again.',
-      }));
-    });
+    dispatch(errorMessageActions.showError({
+      message: 'Something went wrong during creating the channel. Please try again.',
+    }));
+  }
+
+  // return axios({
+  //   method: 'POST',
+  //   url: routes.channelsPath(),
+  //   data,
+  // })
+  //   .then((response) => {
+  //     const channel = get(response, 'data.data.attributes');
+  //
+  //     dispatch(addChannelSuccess());
+  //
+  //     dispatch(channelsActions.addChannel({ channel }));
+  //
+  //     resetFn();
+  //
+  //     dispatch(modalStateActions.hideModal());
+  //   })
+  //   .catch(() => {
+  //     dispatch(addChannelFailure());
+  //
+  //     dispatch(errorMessageActions.showError({
+  //       message: 'Something went wrong during creating the channel. Please try again.',
+  //     }));
+  //   });
 };
 
 const actions = { ...channelAddingState.actions, createChannel };
