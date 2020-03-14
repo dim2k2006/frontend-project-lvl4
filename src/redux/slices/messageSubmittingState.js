@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import get from 'lodash/get';
 import routes from '../../routes';
+import i18n from '../../i18n';
 import { actions as messagesActions } from './messages';
 import { actions as errorMessageActions } from './errorMessage';
 
@@ -43,9 +44,7 @@ const submitMessage = (channelId, data, resetFn) => async (dispatch) => {
   } catch (e) {
     dispatch(submitMessageFailure());
 
-    dispatch(errorMessageActions.showError({
-      message: 'Something went wrong during sending the message. Please try again.',
-    }));
+    dispatch(errorMessageActions.showError({ message: i18n.t('SUBMIT_MESSAGE') }));
   }
 };
 
