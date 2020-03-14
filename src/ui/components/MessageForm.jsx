@@ -3,15 +3,13 @@ import PropTypes from 'prop-types';
 import get from 'lodash/get';
 import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
-import { getUserName } from '../../redux/slices/userName';
-import { getMessageSubmittingState } from '../../redux/slices/messageSubmittingState';
-import { getActiveChannel } from '../../redux/slices/activeChannel';
+import { getSelector } from '../../redux/slices';
 import connect from '../../connect';
 
 const MessageForm = ({ submitMessage }) => {
-  const userName = useSelector(getUserName);
-  const activeChannel = useSelector(getActiveChannel);
-  const submittingState = useSelector(getMessageSubmittingState);
+  const userName = useSelector(getSelector('userName'));
+  const activeChannel = useSelector(getSelector('activeChannel'));
+  const submittingState = useSelector(getSelector('messageSubmittingState'));
   const formik = useFormik({
     initialValues: { message: '' },
     onSubmit: (values, { resetForm }) => {
