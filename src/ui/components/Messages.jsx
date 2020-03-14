@@ -1,12 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { getActiveChannel } from '../../redux/slices/activeChannel';
-import { getMessagesForChannel } from '../../redux/slices/messages';
+import { getSelector } from '../../redux/slices';
 
 const Messages = () => {
   const container = useRef(null);
-  const activeChannel = useSelector(getActiveChannel);
-  const messages = useSelector((state) => getMessagesForChannel(state, activeChannel));
+  const activeChannel = useSelector(getSelector('activeChannel'));
+  const messages = useSelector((state) => getSelector('messagesForChannel')(state, activeChannel));
 
   useEffect(() => {
     container.current.scrollTo(0, 1e10);
