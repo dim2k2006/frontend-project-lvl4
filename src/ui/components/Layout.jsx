@@ -14,10 +14,7 @@ import ErrorMessage from './ErrorMessage';
 import AddChannelModal from './AddChannelModal';
 import EditChannelModal from './EditChannelModal';
 import RemoveChannelModal from './RemoveChannelModal';
-import { getChannels } from '../../redux/slices/channels';
-import { getModalState } from '../../redux/slices/modalState';
-import { getActiveChannel } from '../../redux/slices/activeChannel';
-import { getMessagesForChannel } from '../../redux/slices/messages';
+import { getSelector } from '../../redux/slices';
 import connect from '../../connect';
 
 const modalsMap = {
@@ -43,10 +40,10 @@ const Layout = ({
 }) => {
   const match = useRouteMatch();
   const currentChannel = toNumber(get(match, 'params.channel'));
-  const activeChannel = useSelector(getActiveChannel);
-  const messages = useSelector((state) => getMessagesForChannel(state, activeChannel));
-  const channels = useSelector(getChannels);
-  const modalState = useSelector(getModalState);
+  const activeChannel = useSelector(getSelector('activeChannel'));
+  const messages = useSelector((state) => getSelector('messagesForChannel')(state, activeChannel));
+  const channels = useSelector(getSelector('channels'));
+  const modalState = useSelector(getSelector('modalState'));
 
   useEffect(() => {
     activateChannel({ channel: currentChannel });
