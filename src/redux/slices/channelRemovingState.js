@@ -27,27 +27,24 @@ const {
   removeChannelFailure,
 } = channelRemovingState.actions;
 
-export const deleteChannel = (id) => (dispatch) => {
+export const deleteChannel = (id) => async (dispatch) => {
   dispatch(removeChannelRequest());
 
-  return axios({
-    method: 'DELETE',
-    url: `${routes.channelsPath()}/${id}`,
-  })
-    .then(() => {
-      dispatch(removeChannelSuccess());
+  try {
+    await axios.delete(`${routes.channelsPath()}/${id}`);
 
-      dispatch(channelsActions.removeChannel({ id }));
+    dispatch(removeChannelSuccess());
 
-      dispatch(modalStateActions.hideModal());
-    })
-    .catch(() => {
-      dispatch(removeChannelFailure());
+    dispatch(channelsActions.removeChannel({ id }));
 
-      dispatch(errorMessageActions.showError({
-        message: 'Something went wrong during removing the channel. Please try again.',
-      }));
-    });
+    dispatch(modalStateActions.hideModal());
+  } catch (e) {
+    dispatch(removeChannelFailure());
+
+    dispatch(errorMessageActions.showError({
+      message: 'Something went wrong during removing the channel. Please try again.',
+    }));
+  }
 };
 
 const actions = { ...channelRemovingState.actions, deleteChannel };
