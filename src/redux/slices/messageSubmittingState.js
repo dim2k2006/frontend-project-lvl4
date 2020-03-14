@@ -27,30 +27,26 @@ const {
   submitMessageFailure,
 } = messageSubmittingState.actions;
 
-const submitMessage = (channelId, data, resetFn) => (dispatch) => {
+const submitMessage = (channelId, data, resetFn) => async (dispatch) => {
   dispatch(submitMessageRequest());
 
-  return axios({
-    method: 'POST',
-    url: routes.channelMessagesPath(channelId),
-    data,
-  })
-    .then((response) => {
-      const message = get(response, 'data.data.attributes');
+  try {
+    const response = await axios.post(routes.channelMessagesPath(channelId), data);
 
-      dispatch(submitMessageSuccess());
+    const message = get(response, 'data.data.attributes');
 
-      dispatch(messagesActions.addMessage({ message }));
+    dispatch(submitMessageSuccess());
 
-      resetFn();
-    })
-    .catch(() => {
-      dispatch(submitMessageFailure());
+    dispatch(messagesActions.addMessage({ message }));
 
-      dispatch(errorMessageActions.showError({
-        message: 'Something went wrong during sending the message. Please try again.',
-      }));
-    });
+    resetFn();
+  } catch (e) {
+    dispatch(submitMessageFailure());
+
+    dispatch(errorMessageActions.showError({
+      message: 'Something went wrong during sending the message. Please try again.',
+    }));
+  }
 };
 
 const actions = { ...messageSubmittingState.actions, submitMessage };
