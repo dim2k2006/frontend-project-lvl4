@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import get from 'lodash/get';
 import find from 'lodash/find';
 import { useSelector } from 'react-redux';
-import { getChannels } from '../../redux/slices/channels';
-import { getActiveChannel } from '../../redux/slices/activeChannel';
+import { getSelector } from '../../redux/slices';
 import connect from '../../connect';
 
 const Nav = ({ showModal }) => {
-  const channels = useSelector(getChannels);
-  const activeChannel = useSelector(getActiveChannel);
+  const channels = useSelector(getSelector('channels'));
+  const activeChannel = useSelector(getSelector('activeChannel'));
   const channel = find(channels, (ch) => ch.id === activeChannel);
   const channelName = get(channel, 'name', '');
   const removable = get(channel, 'removable', false);
