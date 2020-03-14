@@ -3,15 +3,13 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Octicon, { Plus } from '@primer/octicons-react';
-import { getChannels } from '../../redux/slices/channels';
-import { getActiveChannel } from '../../redux/slices/activeChannel';
-import { getUserName } from '../../redux/slices/userName';
+import { getSelector } from '../../redux/slices';
 import connect from '../../connect';
 
 const Aside = ({ showModal }) => {
-  const channels = useSelector(getChannels);
-  const activeChannel = useSelector(getActiveChannel);
-  const userName = useSelector(getUserName);
+  const channels = useSelector(getSelector('channels'));
+  const activeChannel = useSelector(getSelector('activeChannel'));
+  const userName = useSelector(getSelector('userName'));
 
   return (
     <div className="pt-4">
