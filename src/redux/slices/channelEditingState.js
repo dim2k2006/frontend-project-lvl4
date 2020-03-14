@@ -28,32 +28,27 @@ const {
   editChannelFailure,
 } = channelEditingState.actions;
 
-export const updateChannel = (channelId, data, resetFn) => (dispatch) => {
+export const updateChannel = (channelId, data, resetFn) => async (dispatch) => {
   dispatch(editChannelRequest());
 
-  return axios({
-    method: 'PATCH',
-    url: `${routes.channelsPath()}/${channelId}`,
-    data,
-  })
-    .then((response) => {
-      const channel = get(response, 'data.data.attributes');
+  try {
+    const response = await axios.patch(`${routes.channelsPath()}/${channelId}`, data);
+    const channel = get(response, 'data.data.attributes');
 
-      dispatch(editChannelSuccess());
+    dispatch(editChannelSuccess());
 
-      dispatch(channelsActions.editChannel({ channel }));
+    dispatch(channelsActions.editChannel({ channel }));
 
-      resetFn();
+    resetFn();
 
-      dispatch(modalStateActions.hideModal());
-    })
-    .catch(() => {
-      dispatch(editChannelFailure());
+    dispatch(modalStateActions.hideModal());
+  } catch (e) {
+    dispatch(editChannelFailure());
 
-      dispatch(errorMessageActions.showError({
-        message: 'Something went wrong during editing the channel. Please try again.',
-      }));
-    });
+    dispatch(errorMessageActions.showError({
+      message: 'Something went wrong during editing the channel. Please try again.',
+    }));
+  }
 };
 
 const actions = { ...channelEditingState.actions, updateChannel };
