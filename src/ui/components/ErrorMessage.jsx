@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import cn from 'classnames';
-import { getErrorMessage } from '../../redux/slices/errorMessage';
+import { getSelector } from '../../redux/slices';
 import connect from '../../connect';
 
 const ErrorMessage = ({ hideError }) => {
-  const message = useSelector(getErrorMessage);
+  const message = useSelector(getSelector('errorMessage'));
 
   if (!message) return null;
 
