@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import get from 'lodash/get';
 import routes from '../../routes';
-import i18n from '../../i18n';
 import { actions as modalStateActions } from './modalState';
 import { actions as channelsActions } from './channels';
 import { actions as errorMessageActions } from './errorMessage';
@@ -46,7 +45,7 @@ export const updateChannel = (channelId, data, resetFn) => async (dispatch) => {
   } catch (e) {
     dispatch(editChannelFailure());
 
-    dispatch(errorMessageActions.showError({ message: i18n.t('EDIT_CHANNEL') }));
+    dispatch(errorMessageActions.showError({ message: 'EDIT_CHANNEL' }));
   }
 };
 
